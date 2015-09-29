@@ -351,7 +351,7 @@ public class InterfazPrincipal extends JFrame{
 			dv = (DetalleVenta)tblCarrito.getValueAt(filaSeleccionada, -1); 
 
 		} catch(Exception exc){
-			JOptionPane.showMessageDialog(InterfazPrincipal.this, "Debe seleccionar un item del carrito", "Borrar Item", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(InterfazPrincipal.this, "Debe Seleccionar un Item del Carrito", "Borrar Item", JOptionPane.ERROR_MESSAGE);
 		}	
 		return dv;
 	}
