@@ -340,7 +340,7 @@ public class InterfazPrincipal extends JFrame{
 			p = (Producto)tblProducto.getValueAt(filaSeleccionada, -1); // "-1" trae objeto entero.
 
 		} catch(Exception exc){
-			JOptionPane.showMessageDialog(InterfazPrincipal.this, "Debe seleccionar un Producto", "Seleccionar Producto", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(InterfazPrincipal.this, "Debe Seleccionar un Producto", "Seleccionar Producto", JOptionPane.ERROR_MESSAGE);
 		}	
 		return p;
 	}
