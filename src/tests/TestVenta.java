@@ -1,16 +1,11 @@
 package tests;
 
-import static org.junit.Assert.*;
-
 import java.sql.Timestamp;
 import java.util.Date;
 
 import junit.framework.Assert;
 
-import org.junit.Test;
-
 import carrito.Cliente;
-import carrito.DetalleVenta;
 import carrito.Venta;
 
 public class TestVenta {

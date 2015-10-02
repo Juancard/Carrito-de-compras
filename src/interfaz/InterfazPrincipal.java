@@ -5,26 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Window;
-
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.JButton;
-import javax.swing.JSplitPane;
-import javax.swing.JScrollBar;
-
-import java.awt.ScrollPane;
 
 import javax.swing.JLabel;
 
-import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -39,13 +26,10 @@ import carrito.ProductoBD;
 import carrito.Venta;
 import carrito.VentaBD;
 import javax.swing.SwingConstants;
-import java.awt.Dimension;
 import java.awt.Insets;
 
 public class InterfazPrincipal extends JFrame{
-	
-	private JFrame frame;
-	
+		
 	private VentaBD ventaBD;
 	private ProductoBD productoBD;
 	private ClienteBD clienteBD;
