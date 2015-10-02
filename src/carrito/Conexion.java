@@ -6,7 +6,7 @@ public class Conexion {
 	
 	// DRIVER DE JDBC Y URL
 	static final String JDBC_DRIVER = "org.postgresql.Driver";  
-	static final String DB_URL = "jdbc:postgresql://192.168.1.105:5432/carrito";
+	static final String DB_URL = "jdbc:postgresql:carrito";
 
 	// CREDENCIALES DE USUARIO
 	static final String USUARIO = "postgres";
