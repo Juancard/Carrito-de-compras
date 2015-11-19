@@ -31,8 +31,7 @@ public class TablaClientes extends AbstractTableModel{
 
 	public Object getValueAt(int fila, int columna) {
 		Object datoProducto = null;
-        Object[] arreglo = arregloClientes.toArray();
-        Cliente cliente = (Cliente)arreglo[fila];
+        Cliente cliente = arregloClientes.get(fila);
 
         if( columna == -1 )
             datoProducto = cliente;

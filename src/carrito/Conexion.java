@@ -15,11 +15,12 @@ public class Conexion {
 	public Connection getConexion(){
 		Connection connection = null;
 		try {
-			// DRIVER DE JDBC PARA POSTGRESQL
+			// CARGAR CLASES DEL DRIVER EN MEMORIA
 			Class.forName(JDBC_DRIVER);
 
 			// ESTABLECE CONEXION
 			connection = DriverManager.getConnection(DB_URL, USUARIO, CONTRASEÑA);
+			
 		} catch(SQLException se){
 			//Manejo de errores para JDBC
 			System.err.println("En Excepcion de JDBC");

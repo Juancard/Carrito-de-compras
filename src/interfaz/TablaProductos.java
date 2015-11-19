@@ -30,8 +30,7 @@ public class TablaProductos extends AbstractTableModel{
 
 	public Object getValueAt(int fila, int columna) {
 		Object datoProducto = null;
-        Object[] arreglo = arregloProductos.toArray();
-        Producto producto = (Producto)arreglo[fila];
+        Producto producto = arregloProductos.get(fila);
 
         if( columna == -1 )
             datoProducto = producto;

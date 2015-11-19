@@ -27,9 +27,7 @@ public class TablaCarrito extends AbstractTableModel{
 
 	public Object getValueAt(int fila, int columna) {
 		Object objeto = null;
-		
-		Object[] arregloObjetos = carrito.getCarrito().toArray();
-		DetalleVenta dv = (DetalleVenta)arregloObjetos[fila];
+		DetalleVenta dv = carrito.getCarrito().get(fila);
 		
 		if (columna == -1)
             objeto = dv;
