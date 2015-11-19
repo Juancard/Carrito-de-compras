@@ -56,8 +56,6 @@ public class VentanaInsertarCliente extends JFrame implements ActionListener{
 			if (interfaz.insertarClienteBD(nombre)) {
 				JOptionPane.showMessageDialog(this,"Cliente Agregado");
 			}
-				// Actualiza tabla de clientes
-    		interfaz.actualizarTablaCliente();
 	        	// Limpio campos de texto y salgo de la ventana.
 	        limpiarYSalir();
 	        

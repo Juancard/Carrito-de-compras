@@ -9,13 +9,13 @@ import carrito.*;
 public class TablaProductos extends AbstractTableModel{
 
 	private String[] nombreColumnas;
-	private ProductoBD productoBD;
+	//private ProductoBD productoBD;
 	private ArrayList<Producto> arregloProductos;
 	
-	public TablaProductos(ProductoBD productoBD){
+	public TablaProductos(ArrayList<Producto> a){
 		super();
-		this.productoBD = productoBD;
-		arregloProductos = productoBD.getProductos();
+		//this.productoBD = productoBD;
+		arregloProductos = a;//productoBD.getProductos();
 		String[] columnas = { "Código", "Descripción", "Precio" };
 		nombreColumnas = columnas;
 	}
@@ -51,10 +51,11 @@ public class TablaProductos extends AbstractTableModel{
 	public boolean isCellEditable(int fila, int columna){
         return false;
     }
-	
-	public void actualizarTabla(){
-		arregloProductos = productoBD.getProductos();
+
+	public void actualizarTabla(ArrayList<Producto> p){
+		//arregloProductos = productoBD.getProductos();
+		arregloProductos = p;
 		fireTableDataChanged();
 	}
-	
+
 }

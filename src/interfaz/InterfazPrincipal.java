@@ -96,7 +96,7 @@ public class InterfazPrincipal extends JFrame{
 		scrollPaneTablaProducto.setBounds(24, 58, 388, 170);
 		getContentPane().add(scrollPaneTablaProducto);
 		
-		tablaProductos = new TablaProductos(productoBD);
+		tablaProductos = new TablaProductos(productoBD.getProductos());
 		tblProducto = new JTable(tablaProductos);
 		scrollPaneTablaProducto.setViewportView(tblProducto);
 		
@@ -265,33 +265,33 @@ public class InterfazPrincipal extends JFrame{
 		Producto p = new Producto();
 		p.setDescripcion(descripcion);
 		p.setPrecio(precio);
-		return productoBD.insertarProducto(p);
+		if (productoBD.insertarProducto(p)){
+			tablaProductos.actualizarTabla(productoBD.getProductos());
+			return true;
+		} else return false;
 	}
-	
-	public void actualizarTablaProducto(){
-		tablaProductos.actualizarTabla();
-	}
-	
+			
 	public boolean actualizarProductoBD(int codigo, String descripcion, Double precio) {
 		Producto p = new Producto();
 		p.setCodigoProducto(codigo);
 		p.setDescripcion(descripcion);
 		p.setPrecio(precio);
-		return productoBD.actualizarProducto(p);
+		if (productoBD.actualizarProducto(p)){
+			tablaProductos.actualizarTabla(productoBD.getProductos());
+			return true;
+		} else return false;
 	}
 	
 	// MÉTODOS PARA INTERACTUAR CON CLIENTE
 	public boolean insertarClienteBD(String nombre){
 		Cliente c = new Cliente();
 		c.setNombre(nombre);
-		return clienteBD.insertarCliente(c);
+		if (clienteBD.insertarCliente(c)){
+			tablaClientes.actualizarTabla();
+			return true;
+		}else return false;
 	}
-	
-	public void actualizarTablaCliente(){
-		tablaClientes.actualizarTabla();
-	}
-	
-	
+		
 	// MÉTODOS PARA INTERACTUAR CON CARRITO
 	public void agregarItemCarrito(DetalleVenta dv){
 		carritoCompras.agregarItem(dv);
@@ -351,4 +351,5 @@ public class InterfazPrincipal extends JFrame{
 		}	
 		return cliente;
 	}
+
 }

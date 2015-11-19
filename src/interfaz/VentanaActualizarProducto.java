@@ -76,8 +76,6 @@ public class VentanaActualizarProducto extends JFrame implements ActionListener{
     		if (interfaz.actualizarProductoBD(codigo, descripcion, precioParseado)){
     			JOptionPane.showMessageDialog(this,"Producto Actualizado");
     		}
-    			//Actualizar Producto
-    		interfaz.actualizarTablaProducto();
     			//Cerrar ventana
 	        dispose();
 		} else {

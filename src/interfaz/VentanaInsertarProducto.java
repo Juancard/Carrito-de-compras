@@ -66,9 +66,7 @@ public class VentanaInsertarProducto extends JFrame implements ActionListener {
     			// Si todo salió bien se agrega producto a BD.
     		if (interfaz.insertarProductoBD(descripcion, precioParseado)){
     			JOptionPane.showMessageDialog(this,"Producto Agregado");
-    		}
-    			// Actualiza tabla de productos
-    		interfaz.actualizarTablaProducto();
+    		} 
 	        	// Limpio campos de texto y salgo de la ventana.
 	        limpiarYSalir();
     	} else{
