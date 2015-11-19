@@ -10,11 +10,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class VentaBD {
-	
-	private Conexion conexion;
-	
+		
 	public VentaBD(){
-		conexion = new Conexion();
+
 	}
 
 	public boolean insertarVenta(Venta venta, ArrayList<DetalleVenta> arregloDetalle) {
@@ -23,7 +21,7 @@ public class VentaBD {
 		boolean respuesta = false;
 		try {
 			// ESTABLECIMIENTO DE CONEXION
-			c = conexion.getConexion();
+			c = ConexionUtility.getConexion();
 			
 			// DESACTIVACION DE COMMIT AUTOMATICO
 			c.setAutoCommit(false);
@@ -63,10 +61,10 @@ public class VentaBD {
 					c.commit();//Se confirma transacción.
 					respuesta = true;
 				} else {
-					conexion.cancelarCommit(c); 
+					ConexionUtility.cancelarCommit(c); 
 				}
 			} else {
-				conexion.cancelarCommit(c); //Se vuelve a estado inicial.
+				ConexionUtility.cancelarCommit(c); //Se vuelve a estado inicial.
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -74,8 +72,8 @@ public class VentaBD {
 			e.printStackTrace();
 		} finally {
 			// CLAUSURA DE CONEXION
-			conexion.cerrarConexion(c);
-			conexion.cerrarCst(cst);
+			ConexionUtility.cerrarConexion(c);
+			ConexionUtility.cerrarCst(cst);
 		}
 		return respuesta;
 	}
@@ -89,7 +87,7 @@ public class VentaBD {
 		
 		try {
 		// ESTABLECIMIENTO DE CONEXIÓN
-		c = conexion.getConexion();
+		c = ConexionUtility.getConexion();
 		
 		// CONSULTA
 		String consulta = "select * from obtener_ventas";
@@ -109,9 +107,9 @@ public class VentaBD {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			conexion.cerrarConexion(c);
-			conexion.cerrarStmt(statement);
-			conexion.cerrarRset(rset);
+			ConexionUtility.cerrarConexion(c);
+			ConexionUtility.cerrarStmt(statement);
+			ConexionUtility.cerrarRset(rset);
 		}
 		
 		return arregloVentas;
@@ -124,7 +122,7 @@ public class VentaBD {
 		ResultSet rset = null;
 		try {
 			// ESTABLECIMIENTO DE CONEXIÓN
-			c = conexion.getConexion();
+			c = ConexionUtility.getConexion();
 			
 			// CONSULTA
 			String consulta = "select * from obtener_detalle_ventas";
@@ -145,9 +143,9 @@ public class VentaBD {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			conexion.cerrarConexion(c);
-			conexion.cerrarStmt(statement);
-			conexion.cerrarRset(rset);
+			ConexionUtility.cerrarConexion(c);
+			ConexionUtility.cerrarStmt(statement);
+			ConexionUtility.cerrarRset(rset);
 		}
 		
 		return arregloDetalleVenta;

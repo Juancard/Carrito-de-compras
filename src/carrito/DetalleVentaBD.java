@@ -7,10 +7,8 @@ import java.sql.Types;
 
 public class DetalleVentaBD {
 	
-	private Conexion conexion;
-
 	public DetalleVentaBD(){
-		conexion = new Conexion();
+
 	}
 	
 	public boolean insertarDetalleVenta(DetalleVenta detalleVenta, Connection c){
@@ -40,7 +38,7 @@ public class DetalleVentaBD {
 				c.commit(); //Se confirma transacción.
 				respuesta = true;
 			} else {
-				conexion.cancelarCommit(c); //Se vuelve a estado inicial.
+				ConexionUtility.cancelarCommit(c); //Se vuelve a estado inicial.
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -48,7 +46,7 @@ public class DetalleVentaBD {
 			e.printStackTrace();
 		} finally {
 			// CLAUSURA DE CALL (no de la conexión)
-			conexion.cerrarCst(cst);
+			ConexionUtility.cerrarCst(cst);
 		}
 		return respuesta;
 	}

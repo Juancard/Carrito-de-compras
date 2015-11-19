@@ -3,11 +3,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ProductoBD {
-	
-	private Conexion conexion;
-	
+		
 	public ProductoBD() {
-		conexion = new Conexion();
+
 	}
 	
 	public boolean insertarProducto(Producto p) {
@@ -18,7 +16,7 @@ public class ProductoBD {
 		
 		try {
 			// ESTABLECIMIENTO DE CONEXION
-			c = conexion.getConexion();
+			c = ConexionUtility.getConexion();
 			
 			// DESACTIVACION DE COMMIT AUTOMATICO
 			c.setAutoCommit(false);
@@ -41,7 +39,7 @@ public class ProductoBD {
 				c.commit(); //Se confirma transacción.
 				respuesta = true;
 			} else {
-				conexion.cancelarCommit(c); //Se vuelve a estado inicial.
+				ConexionUtility.cancelarCommit(c); //Se vuelve a estado inicial.
 			}
 		} catch (SQLException e) {
 			System.err.println("Producto BD - Insertar Cliente - SQL");
@@ -51,8 +49,8 @@ public class ProductoBD {
 			e.printStackTrace();
 		} finally {
 			// CLAUSURA DE CONEXION
-			conexion.cerrarConexion(c);
-			conexion.cerrarCst(cst);
+			ConexionUtility.cerrarConexion(c);
+			ConexionUtility.cerrarCst(cst);
 		}
 		return respuesta;
 	}
@@ -64,7 +62,7 @@ public class ProductoBD {
 		
 		try {
 			// ESTABLECIMIENTO DE CONEXIÓN
-			c = conexion.getConexion();
+			c = ConexionUtility.getConexion();
 			c.setAutoCommit(false);
 			
 			// CONSULTA
@@ -86,7 +84,7 @@ public class ProductoBD {
 				c.commit(); //Se confirma transacción.
 				respuesta = true;
 			} else {
-				conexion.cancelarCommit(c); //Se vuelve a estado inicial.
+				ConexionUtility.cancelarCommit(c); //Se vuelve a estado inicial.
 			}
 						
 		} catch (SQLException e){
@@ -94,8 +92,8 @@ public class ProductoBD {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			conexion.cerrarConexion(c);
-			conexion.cerrarCst(cst);
+			ConexionUtility.cerrarConexion(c);
+			ConexionUtility.cerrarCst(cst);
 		}
 		return respuesta;
 	}
@@ -109,7 +107,7 @@ public class ProductoBD {
 		
 		try {
 			// ESTABLECIMIENTO DE CONEXIÓN
-			c = conexion.getConexion();
+			c = ConexionUtility.getConexion();
 			
 			// CONSULTA
 			String consulta = "select * from obtener_productos";
@@ -129,9 +127,9 @@ public class ProductoBD {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			conexion.cerrarConexion(c);
-			conexion.cerrarStmt(statement);
-			conexion.cerrarRset(rset);
+			ConexionUtility.cerrarConexion(c);
+			ConexionUtility.cerrarStmt(statement);
+			ConexionUtility.cerrarRset(rset);
 		}
 		
 		return arregloProductos;
@@ -145,7 +143,7 @@ public class ProductoBD {
 		
 		try {
 			// ESTABLECIMIENTO DE CONEXIÓN
-			c = conexion.getConexion();
+			c = ConexionUtility.getConexion();
 			
 			// CONSULTA
 			String consulta = "select * from obtener_producto(?)";
@@ -166,9 +164,9 @@ public class ProductoBD {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			conexion.cerrarConexion(c);
-			conexion.cerrarPreparedStmt(pst);
-			conexion.cerrarRset(rset);
+			ConexionUtility.cerrarConexion(c);
+			ConexionUtility.cerrarPreparedStmt(pst);
+			ConexionUtility.cerrarRset(rset);
 		}
 		return p;
 	}

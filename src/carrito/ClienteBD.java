@@ -4,11 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ClienteBD {
-	
-	private Conexion conexion;
-	
+		
 	public ClienteBD(){
-		conexion = new Conexion();
+		
 	}
 	
 	public boolean insertarCliente(Cliente cliente) {
@@ -19,7 +17,7 @@ public class ClienteBD {
 
 		try {
 			// ESTABLECIMIENTO DE CONEXION
-			c = conexion.getConexion();
+			c = ConexionUtility.getConexion();
 			
 			// DESACTIVACION DE COMMIT AUTOMATICO
 			c.setAutoCommit(false);
@@ -41,7 +39,7 @@ public class ClienteBD {
 				c.commit(); //Se confirma transacción.
 				respuesta = true;
 			} else {
-				conexion.cancelarCommit(c);
+				ConexionUtility.cancelarCommit(c);
 			}
 		} catch (SQLException e) {
 			System.err.println("Cliente BD - Insertar Cliente - SQL");
@@ -51,8 +49,8 @@ public class ClienteBD {
 			e.printStackTrace();
 		} finally {
 			// CLAUSURA DE CONEXION
-			conexion.cerrarConexion(c);
-			conexion.cerrarCst(cst);
+			ConexionUtility.cerrarConexion(c);
+			ConexionUtility.cerrarCst(cst);
 		}
 		return respuesta;
 	}
@@ -65,7 +63,7 @@ public class ClienteBD {
 			
 			try {
 			// ESTABLECIMIENTO DE CONEXIÓN
-			c = conexion.getConexion();
+			c = ConexionUtility.getConexion();
 			
 			// CONSULTA
 			String consulta = "select * from obtener_clientes";
@@ -84,9 +82,9 @@ public class ClienteBD {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			conexion.cerrarConexion(c);
-			conexion.cerrarStmt(statement);
-			conexion.cerrarRset(rset);
+			ConexionUtility.cerrarConexion(c);
+			ConexionUtility.cerrarStmt(statement);
+			ConexionUtility.cerrarRset(rset);
 		}
 		
 		return arregloClientes;
