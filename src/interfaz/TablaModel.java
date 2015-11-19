@@ -10,8 +10,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
-
-import carrito.Producto;
 	
 @SuppressWarnings("unchecked") // Permitir casteo a genérico
 public class TablaModel<T> extends AbstractTableModel{
@@ -87,7 +85,9 @@ public class TablaModel<T> extends AbstractTableModel{
     }
 	
 	public void actualizarTabla(ArrayList<T> nuevaLista){
-		lista = nuevaLista;
+		if (nuevaLista != null){
+					lista = nuevaLista;
+		}
 		fireTableDataChanged();
 	}
 }

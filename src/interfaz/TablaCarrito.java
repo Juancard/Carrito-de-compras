@@ -1,5 +1,7 @@
 package interfaz;
 
+import java.util.ArrayList;
+
 import javax.swing.table.AbstractTableModel;
 
 import carrito.CarritoCompras;
@@ -8,11 +10,11 @@ import carrito.DetalleVenta;
 public class TablaCarrito extends AbstractTableModel{
 
 	private String[] nombreColumnas;
-	private CarritoCompras carrito;
+	private ArrayList<DetalleVenta> lista;
 	
-	public TablaCarrito(CarritoCompras carrito){
+	public TablaCarrito(ArrayList<DetalleVenta> arreglo){
 		super();
-		this.carrito = carrito;
+		lista = arreglo;
 		String[] columnas = {"Cod. Prod.","Descripcion","Precio Unit.","Cantidad","Desc. Total","Subtotal"};
 		nombreColumnas = columnas;
 	}
@@ -22,12 +24,12 @@ public class TablaCarrito extends AbstractTableModel{
 	}
 
 	public int getRowCount() {
-		return carrito.getCarrito().size();
+		return lista.size();
 	}
 
 	public Object getValueAt(int fila, int columna) {
 		Object objeto = null;
-		DetalleVenta dv = carrito.getCarrito().get(fila);
+		DetalleVenta dv = lista.get(fila);
 		
 		if (columna == -1)
             objeto = dv;

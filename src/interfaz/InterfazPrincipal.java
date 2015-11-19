@@ -40,9 +40,9 @@ public class InterfazPrincipal extends JFrame{
 	VentanaActualizarProducto ventanaActualizarProducto;
 	VentanaAgregarCarrito ventanaAgregarCarrito;
 	
-	private TablaProductos tablaProductos;
+	private TablaModel<Producto> tablaProductos;
 	private JTable tblProducto;
-	private TablaClientes tablaClientes;
+	private TablaModel<Cliente> tablaClientes;
 	private JTable tblCliente;
 	private TablaCarrito tablaCarrito;
 	private JTable tblCarrito;
@@ -96,7 +96,7 @@ public class InterfazPrincipal extends JFrame{
 		scrollPaneTablaProducto.setBounds(24, 58, 388, 170);
 		getContentPane().add(scrollPaneTablaProducto);
 		
-		tablaProductos = new TablaProductos(productoBD.getProductos());
+		tablaProductos = new TablaModel<Producto>("carrito.Producto",productoBD.getProductos());
 		tblProducto = new JTable(tablaProductos);
 		scrollPaneTablaProducto.setViewportView(tblProducto);
 		
@@ -111,7 +111,7 @@ public class InterfazPrincipal extends JFrame{
 		scrollPaneTablaCliente.setBounds(438, 58, 220, 211);
 		getContentPane().add(scrollPaneTablaCliente);
 		
-		tablaClientes = new TablaClientes(clienteBD);
+		tablaClientes = new TablaModel<Cliente>("carrito.Cliente",clienteBD.getClientes());
 		tblCliente = new JTable(tablaClientes);
 		scrollPaneTablaCliente.setViewportView(tblCliente);
 				
@@ -125,7 +125,7 @@ public class InterfazPrincipal extends JFrame{
 		scrollPaneTablaCarrito.setBounds(21, 300, 499, 121);
 		getContentPane().add(scrollPaneTablaCarrito);
 		
-		tablaCarrito = new TablaCarrito(carritoCompras);
+		tablaCarrito = new TablaCarrito(carritoCompras.getCarrito());
 		tblCarrito = new JTable(tablaCarrito);
 		scrollPaneTablaCarrito.setViewportView(tblCarrito);
 		
@@ -216,7 +216,7 @@ public class InterfazPrincipal extends JFrame{
 				if (dv != null){
 					carritoCompras.borrarItem(dv.getCodigoProducto());
 					InterfazPrincipal.this.setTotal();
-					InterfazPrincipal.this.actualizarTablaCarrito();
+					tablaCarrito.actualizarTabla();
 				}
 			}
 		});
@@ -229,7 +229,7 @@ public class InterfazPrincipal extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				carritoCompras.borrarCarrito();
 				InterfazPrincipal.this.setTotal();
-				InterfazPrincipal.this.actualizarTablaCarrito();
+				tablaCarrito.actualizarTabla();
 			}
 		});
 		btnLimpiarCarrito.setBounds(530, 328, 128, 21);
@@ -287,7 +287,7 @@ public class InterfazPrincipal extends JFrame{
 		Cliente c = new Cliente();
 		c.setNombre(nombre);
 		if (clienteBD.insertarCliente(c)){
-			tablaClientes.actualizarTabla();
+			tablaClientes.actualizarTabla(clienteBD.getClientes());
 			return true;
 		}else return false;
 	}
@@ -296,13 +296,9 @@ public class InterfazPrincipal extends JFrame{
 	public void agregarItemCarrito(DetalleVenta dv){
 		carritoCompras.agregarItem(dv);
 		this.setTotal();
-		this.actualizarTablaCarrito();
-	}
-	
-	public void actualizarTablaCarrito(){
 		tablaCarrito.actualizarTabla();
 	}
-	
+
 	public void setTotal(){
 		txtTotal.setText(String.valueOf(carritoCompras.getTotalCarrito()));
 	}
