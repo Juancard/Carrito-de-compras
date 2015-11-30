@@ -1,4 +1,4 @@
-package interfaz;
+package vista;
 
 import java.awt.event.*;
 

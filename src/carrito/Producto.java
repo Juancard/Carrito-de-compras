@@ -1,9 +1,16 @@
 package carrito;
 
+import anotaciones.JTableConfig;
+
 public class Producto {
 	
+	@JTableConfig(nombre="Cod.")
     private int codigoProducto;
+	
+	@JTableConfig(nombre="Descripción")
     private String descripcion;
+	
+	@JTableConfig(nombre="Precio")
     private double precio;
 
     public Producto() {

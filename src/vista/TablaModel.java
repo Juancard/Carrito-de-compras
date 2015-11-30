@@ -1,15 +1,18 @@
-package interfaz;
+package vista;
 /*
  * Implementación de modelos de tablas utilizando Reflection
  * Bibliografia utilizada: "Introduccion al uso de JPA 2 genérico" de Guillermo Cherencio.
  * 
  */
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
+
+import anotaciones.JTableConfig;
 	
 @SuppressWarnings("unchecked") // Permitir casteo a genérico
 public class TablaModel<T> extends AbstractTableModel{
@@ -17,35 +20,11 @@ public class TablaModel<T> extends AbstractTableModel{
 	private ArrayList<T> lista;
 	private String nombreColumnas[];
 	private Method getters[];
-	private T objeto;
+	
 
 	public TablaModel(String nombreGenerico, ArrayList<T> arreglo){
 		lista = arreglo;
-		objeto = null;
-		try {
-			objeto = (T) Class.forName(nombreGenerico).newInstance();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		}
-		Class clase = objeto.getClass();
-		int cantColumnas = clase.getDeclaredFields().length;
-		nombreColumnas = new String[cantColumnas];
-		getters = new Method[cantColumnas];
-		int i = 0;
-		for (Field f : clase.getDeclaredFields()){
-			nombreColumnas[i] = f.getName();
-			getters[i] = null;
-			for (Method m : clase.getDeclaredMethods()){
-				if (m.getName().equalsIgnoreCase("get"+nombreColumnas[i])){
-					getters[i] = m;
-				}
-			}
-			i++;
-		} 	
+		reflexion(nombreGenerico); // hago reflection
 	}
 	
 	public int getColumnCount() {
@@ -90,4 +69,40 @@ public class TablaModel<T> extends AbstractTableModel{
 		}
 		fireTableDataChanged();
 	}
+	
+	// METODO PRIVADO QUE REALIZA REFLECTION
+	
+	private void reflexion(String nombreGenerico) {
+		T objeto = null;
+		try {
+			objeto = (T) Class.forName(nombreGenerico).newInstance();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		Class clase = objeto.getClass();
+		int cantColumnas = clase.getDeclaredFields().length;
+		nombreColumnas = new String[cantColumnas];
+		getters = new Method[cantColumnas];
+		int i = 0;
+		for (Field f : clase.getDeclaredFields()){
+			nombreColumnas[i] = f.getName();
+			getters[i] = null;
+			for (Annotation a : f.getAnnotations()){
+				if (a.toString().startsWith("@anotaciones.JTableConfig(")){
+					nombreColumnas[i] = ((JTableConfig) a).nombre();
+				}
+			}
+			for (Method m : clase.getDeclaredMethods()){
+				if (m.getName().equalsIgnoreCase("get"+f.getName())){
+					getters[i] = m;
+				}
+			}
+			i++;
+		} 			
+	}
+
 }
