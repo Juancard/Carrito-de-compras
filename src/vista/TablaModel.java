@@ -65,7 +65,7 @@ public class TablaModel<T> extends AbstractTableModel{
 	
 	public void actualizarTabla(ArrayList<T> nuevaLista){
 		if (nuevaLista != null){
-					lista = nuevaLista;
+			lista = nuevaLista;
 		}
 		fireTableDataChanged();
 	}

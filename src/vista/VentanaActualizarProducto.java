@@ -9,7 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class VentanaActualizarProducto extends JFrame implements ActionListener{
+import controlador.Controlador;
+
+public class VentanaActualizarProducto extends JFrame{
 	
 	private JLabel lblCodigo;
 	private JLabel lblDescripcion;  
@@ -20,17 +22,17 @@ public class VentanaActualizarProducto extends JFrame implements ActionListener{
     private JButton btnAceptar; 
     private JButton btnCancelar;
     
-    private InterfazPrincipal interfaz;
+    private InterfazVista interfazVista;
     
-    public VentanaActualizarProducto(InterfazPrincipal ip) {
+    public VentanaActualizarProducto(InterfazVista iv) {
         super();
-        interfaz = ip;
+        interfazVista = iv;
         configurarVentana();
         inicializarComponentes();
     }
 
     private void configurarVentana() {
-        this.setTitle("Actualizar Producto");                   
+        this.setTitle(interfazVista.ACTUALIZAR_PRODUCTO);                   
         this.setSize(310, 250);                               
         this.setLocationRelativeTo(null);
         this.setLayout(null);
@@ -39,15 +41,13 @@ public class VentanaActualizarProducto extends JFrame implements ActionListener{
     
     private void inicializarComponentes() {
 	    	// Creo componentes
-    	instanciarComponentes();
-	    	// Acciones de los botones
-    	accionComponentes();        
+    	instanciarComponentes();  
         	// Posicion en ventana
     	posicionarComponentes();
         	// Adiciono los componentes a la ventana
     	agregarComponentes();
     }
-
+/*
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand() == "ACEPTAR"){
 				// Se toman los datos ingresados
@@ -83,19 +83,9 @@ public class VentanaActualizarProducto extends JFrame implements ActionListener{
     			dispose();
     		}
     	}
-	}  	
-		
-	public void setTxtCodigo(int codigoProducto) {
-	    txtCodigo.setText(Integer.toString(codigoProducto));
-	}
+	}  
+*/
 
-	public void setTxtDescripcion(String descripcion) {
-	    txtDescripcion.setText(descripcion);
-	}
-
-	public void setTxtPrecio(double precio) {
-	    txtPrecio.setText(Double.toString(precio));	
-	}
 	
 	
 	private void instanciarComponentes() {
@@ -119,12 +109,6 @@ public class VentanaActualizarProducto extends JFrame implements ActionListener{
         btnAceptar.setBounds(25, 170, 100, 30);
         btnCancelar.setBounds(130, 170, 100, 30);
 	}
-	private void accionComponentes() {
-        btnAceptar.setActionCommand("ACEPTAR");
-        btnAceptar.addActionListener(this);
-        btnCancelar.setActionCommand("CANCELAR");
-        btnCancelar.addActionListener(this);		
-	}
 	private void agregarComponentes() {
         this.add(lblCodigo);
         this.add(txtCodigo);
@@ -134,5 +118,39 @@ public class VentanaActualizarProducto extends JFrame implements ActionListener{
         this.add(txtPrecio);
         this.add(btnAceptar);
         this.add(btnCancelar);		
+	}
+
+	public void setControlador(Controlador c) {
+        btnAceptar.setActionCommand(interfazVista.CONFIRMAR_ACTUALIZAR_PRODUCTO);
+        btnAceptar.addActionListener(c);
+        btnCancelar.setActionCommand(interfazVista.CANCELAR_ACTUALIZAR_PRODUCTO);
+        btnCancelar.addActionListener(c);	
+	}
+
+	public void cerrar() {
+		dispose();		
+	}
+
+	public String getTxtDescripcion() {
+		return txtDescripcion.getText();
+	}
+
+	public String getTxtPrecio() {
+		return txtPrecio.getText();
+	}
+
+	public String getTxtCodigo() {
+		return txtCodigo.getText();
+	}
+	public void setTxtCodigo(int codigoProducto) {
+	    txtCodigo.setText(Integer.toString(codigoProducto));
+	}
+
+	public void setTxtDescripcion(String descripcion) {
+	    txtDescripcion.setText(descripcion);
+	}
+
+	public void setTxtPrecio(double precio) {
+	    txtPrecio.setText(Double.toString(precio));	
 	}
 }
