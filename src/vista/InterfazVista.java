@@ -19,17 +19,15 @@ public interface InterfazVista {
 	
 	public void abrirFormulario(String nombre, Controlador c);
 	public void cerrarFormulario(String nombre);
-	public String getDescripcionProducto();
-	public String getPrecioProducto();
 	public void actualizarProductos(ArrayList<Producto> productos);
 	
 	public void errorValidacion(String causaError, String tituloError);
 	public void operacionCorrecta(String operacion);
 	
 	public Object getItemSeleccionado(String operacion);
-	public void setValoresDefectoProducto(int codigo, String descripcion, double precio);
+	public void setValoresDefectoProducto(String codigo, String descripcion, String precio);
 	
-	public String getDescProd();
-	public String getPrecioProd();
-	public String getCodProd();
+	public String getDescripcionProducto();
+	public String getPrecioProducto();
+	public String getCodigoProducto();
 }

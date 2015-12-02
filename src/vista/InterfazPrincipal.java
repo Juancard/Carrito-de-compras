@@ -39,9 +39,8 @@ public class InterfazPrincipal extends JFrame implements InterfazVista{
 	private ClienteBD clienteBD;
 	private CarritoCompras carritoCompras;
 	
-	private VentanaInsertarProducto ventanaInsertarProducto;
 	private VentanaInsertarCliente ventanaInsertarCliente;
-	private VentanaActualizarProducto ventanaActualizarProducto;
+	private VentanaProducto ventanaProducto;
 	private VentanaAgregarCarrito ventanaAgregarCarrito;
 	
 	private TablaModel<Producto> tablaProductos;
@@ -54,23 +53,7 @@ public class InterfazPrincipal extends JFrame implements InterfazVista{
 
 	private JButton btnInsertarProducto;
 	private JButton btnActualizarProducto;
-	/**
-	 * Menu de Interfaz.
-	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InterfazPrincipal window = new InterfazPrincipal();
-					window.setVisible(true);  
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
+
 	/**
 	 * Arma la aplicación
 	 */
@@ -170,21 +153,6 @@ public class InterfazPrincipal extends JFrame implements InterfazVista{
 		btnActualizarProducto.setBounds(230, 26, 182, 21);
 		getContentPane().add(btnActualizarProducto);
 		btnActualizarProducto.setActionCommand(this.ACTUALIZAR_PRODUCTO);
-		/*
-		btnActualizarProducto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Producto p = getFilaProductoSeleccionada();	
-				if (p != null){
-					ventanaActualizarProducto = new VentanaActualizarProducto(InterfazPrincipal.this);
-					ventanaActualizarProducto.setTxtCodigo(p.getCodigoProducto());
-					ventanaActualizarProducto.setTxtDescripcion(p.getDescripcion());
-					ventanaActualizarProducto.setTxtPrecio(p.getPrecio());
-					ventanaActualizarProducto.setVisible(true);
-				}
-			}
-		});
-		*/
-
 		
 		//BOTON INSERTAR CLIENTE
 		JButton btnInsertarCliente = new JButton("Insertar Cliente");
@@ -266,18 +234,6 @@ public class InterfazPrincipal extends JFrame implements InterfazVista{
 	
 	// METODOS
 		/*
-	// MÉTODOS PARA INTERACTUAR CON PRODUCTO
-			
-	public boolean actualizarProductoBD(int codigo, String descripcion, Double precio) {
-		Producto p = new Producto();
-		p.setCodigoProducto(codigo);
-		p.setDescripcion(descripcion);
-		p.setPrecio(precio);
-		if (productoBD.actualizarProducto(p)){
-			tablaProductos.actualizarTabla(productoBD.getProductos());
-			return true;
-		} else return false;
-	}
 	
 	// MÉTODOS PARA INTERACTUAR CON CLIENTE
 	public boolean insertarClienteBD(String nombre){
@@ -310,25 +266,14 @@ public class InterfazPrincipal extends JFrame implements InterfazVista{
 	}
 	*/
 	
+	//METODOS PRIVADOS PARA OBTENER FILAS SELECCIONADAS
 	public Object getItemSeleccionado(String operacion){
 		if (operacion == this.ACTUALIZAR_PRODUCTO){
 			int filaSeleccionada = tblProducto.getSelectedRow();
 			return tblProducto.getValueAt(filaSeleccionada, -1); // "-1" trae objeto entero.
 		} else return null;
 	}
-	
-	//METODOS PRIVADOS PARA OBTENER FILAS SELECCIONADAS
-	private Producto getFilaProductoSeleccionada(){
-		Producto p = null;
-		try{
-			int filaSeleccionada = tblProducto.getSelectedRow();
-			p = (Producto)tblProducto.getValueAt(filaSeleccionada, -1); // "-1" trae objeto entero.
-
-		} catch(Exception exc){
-			JOptionPane.showMessageDialog(InterfazPrincipal.this, "Debe Seleccionar un Producto", "Seleccionar Producto", JOptionPane.ERROR_MESSAGE);
-		}	
-		return p;
-	}
+	/*
 	private DetalleVenta getItemCarritoSeleccionado(){
 		DetalleVenta dv = null;
 		try{
@@ -352,37 +297,31 @@ public class InterfazPrincipal extends JFrame implements InterfazVista{
 		}	
 		return cliente;
 	}
-
+*/
 	public void setControlador(Controlador c) {
 		btnInsertarProducto.addActionListener(c);
 		btnActualizarProducto.addActionListener(c);
 	}
 
-	public String getDescripcionProducto() {
-		return ventanaInsertarProducto.getTxtDescripcion();
-	}
-
-	public String getPrecioProducto() {
-		return ventanaInsertarProducto.getTxtPrecio();
-	}
-
 	public void abrirFormulario(String operacion, Controlador c) {
 		if (operacion == this.INSERTAR_PRODUCTO){
-			ventanaInsertarProducto = new VentanaInsertarProducto(this);
-			ventanaInsertarProducto.setControlador(c);
-			ventanaInsertarProducto.setVisible(true);
+			ventanaProducto = new VentanaProducto(this.INSERTAR_PRODUCTO);
+			ventanaProducto.btnAceptar.setActionCommand(this.CONFIRMAR_INSERTAR_PRODUCTO);
+			ventanaProducto.btnCancelar.setActionCommand(this.CANCELAR_INSERTAR_PRODUCTO);
+			ventanaProducto.setControlador(c);
+			ventanaProducto.setVisible(true);
 		}else if(operacion == this.ACTUALIZAR_PRODUCTO){
-			ventanaActualizarProducto = new VentanaActualizarProducto(this);
-			ventanaActualizarProducto.setControlador(c);
-			ventanaActualizarProducto.setVisible(true);
+			ventanaProducto = new VentanaProducto(this.ACTUALIZAR_PRODUCTO);
+			ventanaProducto.setControlador(c);
+			ventanaProducto.btnAceptar.setActionCommand(this.CONFIRMAR_ACTUALIZAR_PRODUCTO);
+			ventanaProducto.btnCancelar.setActionCommand(this.CANCELAR_ACTUALIZAR_PRODUCTO);
+			ventanaProducto.setVisible(true);
 		}
 	}
 	
 	public void cerrarFormulario(String operacion){
-		if (operacion ==  this.INSERTAR_PRODUCTO){
-			ventanaInsertarProducto.cerrar();
-		}else if(operacion == this.ACTUALIZAR_PRODUCTO){
-			ventanaActualizarProducto.cerrar();
+		if (operacion.equals(INSERTAR_PRODUCTO) || operacion.equals(ACTUALIZAR_PRODUCTO)){
+			ventanaProducto.dispose();
 		}
 	}
 
@@ -398,22 +337,22 @@ public class InterfazPrincipal extends JFrame implements InterfazVista{
 		JOptionPane.showMessageDialog(this, mensaje);
 	}
 
-	public void setValoresDefectoProducto(int codigo, String descripcion,double precio) {
-		ventanaActualizarProducto.setTxtCodigo(codigo);
-		ventanaActualizarProducto.setTxtDescripcion(descripcion);
-		ventanaActualizarProducto.setTxtPrecio(precio);
+	public void setValoresDefectoProducto(String codigo, String descripcion,String precio) {
+		ventanaProducto.txtCodigo.setText(codigo);
+		ventanaProducto.txtDescripcion.setText(descripcion);
+		ventanaProducto.txtPrecio.setText(precio);
 	}
 
-	public String getDescProd() {
-		return ventanaActualizarProducto.getTxtDescripcion();
+	public String getDescripcionProducto() {
+		return ventanaProducto.txtDescripcion.getText();
 	}
 
-	public String getPrecioProd() {
-		return ventanaActualizarProducto.getTxtPrecio();
+	public String getPrecioProducto() {
+		return ventanaProducto.txtPrecio.getText();
 	}
 
-	public String getCodProd() {
-		return ventanaActualizarProducto.getTxtCodigo();
+	public String getCodigoProducto() {
+		return ventanaProducto.txtCodigo.getText();
 	}
 	
 }
