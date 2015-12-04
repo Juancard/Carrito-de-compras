@@ -2,6 +2,8 @@ package vista;
 
 import java.util.ArrayList;
 
+import javax.swing.table.AbstractTableModel;
+
 import modelo.Cliente;
 import modelo.DetalleVenta;
 import modelo.Producto;
@@ -36,20 +38,19 @@ public interface InterfazVista {
 	public void setControladorCliente(ControladorCliente controladorCliente);
 	public void setControladorCarrito(ControladorCarrito controladorCarrito);
 		
+	// MENSAJES
 	public void errorOperacion(String causaError, String tituloError);
 	public void operacionCorrecta(String operacion);
 	
-	public Object getItemSeleccionado(String operacion);
-	public boolean isItemSeleccionado(String operacion);
-	
+	// ETIQUETA DE TOTAL
 	public void setTotal(String total);
 	
+	//ITEMS SELECCIONADOS
+	public Object getItemSeleccionado(String operacion);
+	public boolean isItemSeleccionado(String operacion);
+		
 	//METODOS DE TABLAS
-	public void setearCarrito(ArrayList<DetalleVenta> itemsCarrito);
-	public void setearProductos(ArrayList<Producto> productos);
-	public void setearClientes(ArrayList<Cliente> clientes);
-	
-	public void actualizarProductos(ArrayList<Producto> productos);
-	public void actualizarCarrito();
-	public void actualizarClientes(ArrayList<Cliente> nuevaLista);
+	public void setearCarrito(AbstractTableModel tablaCarrito);
+	public void setearProductos(AbstractTableModel productos);
+	public void setearClientes(AbstractTableModel tablaClientes);
 }

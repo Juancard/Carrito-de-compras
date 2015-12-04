@@ -7,26 +7,22 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.SwingConstants;
 
 import modelo.Cliente;
-import modelo.DetalleVenta;
 import modelo.Producto;
 import controlador.ControladorCarrito;
 import controlador.ControladorCliente;
 import controlador.ControladorProducto;
 
 import java.awt.Insets;
-import java.util.ArrayList;
 
 public class VistaPrincipal extends JFrame implements InterfazVista{
 
-	private TablaModel<Producto> tablaProductos;
 	private JTable tblProducto;
-	private TablaModel<Cliente> tablaClientes;
 	private JTable tblCliente;
-	private TablaCarrito tablaCarrito;
 	private JTable tblCarrito;
 	
 	private JTextField txtTotal;
@@ -133,6 +129,8 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	
 	// METODOS	
 
+	
+	// SETEAR CONTROLADORES
 	@Override
 	public void setControladorProducto(ControladorProducto controladorProducto) {
 		btnInsertarProducto.addActionListener(controladorProducto);
@@ -157,7 +155,6 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	}
 	
 	// METODOS DE MENSAJES DE DIALOGO
-	
 	public void errorOperacion(String causaError, String tituloError) {
         JOptionPane.showMessageDialog(null, causaError, tituloError, JOptionPane.ERROR_MESSAGE);
 	}
@@ -191,10 +188,8 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	}
 
 	// METODOS DE SETEAR Y ACTUALIZAR TABLAS
-	public void setearCarrito(ArrayList<DetalleVenta> lista) {
-		tablaCarrito = new TablaCarrito(lista);
-		tblCarrito.setModel(tablaCarrito);
-	
+	public void setearCarrito(AbstractTableModel tabla) {
+		tblCarrito.setModel(tabla);
 		TableColumnModel columnModelCarrito = tblCarrito.getColumnModel();
 		columnModelCarrito.getColumn(0).setPreferredWidth(35);
 		columnModelCarrito.getColumn(1).setPreferredWidth(140);
@@ -204,34 +199,18 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 		columnModelCarrito.getColumn(5).setPreferredWidth(20);
 	}
 
-	public void setearProductos(ArrayList<Producto> productos) {
-		tablaProductos = new TablaModel<Producto>("modelo.Producto",productos);
-		tblProducto.setModel(tablaProductos);
-		
+	public void setearProductos(AbstractTableModel tabla) {
+		tblProducto.setModel(tabla);
 		TableColumnModel columnModelProducto = tblProducto.getColumnModel();
 		columnModelProducto.getColumn(0).setPreferredWidth(20);
 		columnModelProducto.getColumn(1).setPreferredWidth(200);
 		columnModelProducto.getColumn(2).setPreferredWidth(50);
 	}
 
-	public void setearClientes(ArrayList<Cliente> clientes) {
-		tablaClientes = new TablaModel<Cliente>("modelo.Cliente",clientes);
-		tblCliente.setModel(tablaClientes);
-		
+	public void setearClientes(AbstractTableModel tabla) {
+		tblCliente.setModel(tabla);
 		TableColumnModel columnModelCliente = tblCliente.getColumnModel();
 		columnModelCliente.getColumn(0).setPreferredWidth(20);
 		columnModelCliente.getColumn(1).setPreferredWidth(100);
 	}	
-	
-	public void actualizarProductos(ArrayList<Producto> nuevaLista) {
-		tablaProductos.actualizarTabla(nuevaLista);
-	}
-	
-	public void actualizarClientes(ArrayList<Cliente> nuevaLista) {
-		tablaClientes.actualizarTabla(nuevaLista);
-	}
-	
-	public void actualizarCarrito(){
-		tablaCarrito.fireTableDataChanged();
-	}
 }

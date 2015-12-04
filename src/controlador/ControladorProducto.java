@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import modelo.Producto;
 import modelo.ProductoBD;
 import vista.InterfazVista;
+import vista.TablaModel;
 import vista.VentanaProducto;
 
 public class ControladorProducto implements ActionListener {
 
 	private InterfazVista vista;
 	private VentanaProducto ventanaProducto;
+	private TablaModel<Producto> tablaProductos;
 
 	public ControladorProducto(InterfazVista v) {
 		vista = v;
@@ -22,7 +24,8 @@ public class ControladorProducto implements ActionListener {
 	private void setearTabla() {
 		// Traigo de la base los productos
 		ProductoBD productoBD = new ProductoBD();
-		vista.setearProductos(productoBD.getProductos());
+		tablaProductos = new TablaModel<Producto>("modelo.Producto",productoBD.getProductos());
+		vista.setearProductos(tablaProductos);
 	}
 
 	private void setearControlador() {
@@ -119,11 +122,11 @@ public class ControladorProducto implements ActionListener {
 		p.setPrecio(precio);
 		ProductoBD productoBD = new ProductoBD();
 		if (productoBD.insertarProducto(p)){
-			vista.actualizarProductos(productoBD.getProductos());
+			actualizarTabla();
 			return true;
 		} else return false;
 	}
-	
+
 	private boolean actualizarProductoBD(int codigo, String descripcion, Double precio) {
 		Producto p = new Producto();
 		p.setCodigoProducto(codigo);
@@ -131,9 +134,14 @@ public class ControladorProducto implements ActionListener {
 		p.setPrecio(precio);
 		ProductoBD productoBD = new ProductoBD();
 		if (productoBD.actualizarProducto(p)){
-			vista.actualizarProductos(productoBD.getProductos());
+			actualizarTabla();
 			return true;
 		} else return false;
+	}
+	
+	private void actualizarTabla() {
+		ProductoBD productoBD = new ProductoBD();
+		tablaProductos.actualizarTabla(productoBD.getProductos());
 	}
 
 	private boolean validarProducto(String operacion, String descripcion, String precio){

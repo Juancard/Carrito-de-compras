@@ -10,12 +10,14 @@ import modelo.Producto;
 import modelo.Venta;
 import modelo.VentaBD;
 import vista.InterfazVista;
+import vista.TablaCarrito;
 import vista.VentanaCarrito;
 
 public class ControladorCarrito implements ActionListener{
 
 	private InterfazVista vista;
 	private CarritoCompras carrito;
+	private TablaCarrito tablaCarrito;
 	private VentanaCarrito ventanaCarrito;
 
 	public ControladorCarrito(InterfazVista v) {
@@ -31,7 +33,8 @@ public class ControladorCarrito implements ActionListener{
 		// Genero el carrito de compras
 		CarritoCompras carro = new CarritoCompras();
 		this.carrito=carro;
-		vista.setearCarrito(carrito.getCarrito());
+		tablaCarrito = new TablaCarrito(carrito.getCarrito());
+		vista.setearCarrito(tablaCarrito);
 	}
 
 
@@ -48,13 +51,13 @@ public class ControladorCarrito implements ActionListener{
 			if (vista.isItemSeleccionado(accion)){
 				DetalleVenta dv = (DetalleVenta) vista.getItemSeleccionado(accion);
 				carrito.borrarItem(dv.getCodigoProducto());
-				vista.actualizarCarrito();
+				tablaCarrito.fireTableDataChanged();
 				vista.setTotal(String.valueOf(carrito.getTotalCarrito()));
 			} else vista.errorOperacion("Debe Seleccionar un Item del Carrito", accion);
 		// LIMPIAR CARRITO
 		} else if(accion.equals(vista.LIMPIAR_CARRITO)){
 			carrito.borrarCarrito();
-			vista.actualizarCarrito();
+			tablaCarrito.fireTableDataChanged();
 			vista.setTotal("0.00");
 		} else if (accion.equals(vista.FINALIZAR_COMPRA)){
 			if (carrito.getCarrito().isEmpty()){
@@ -112,7 +115,7 @@ public class ControladorCarrito implements ActionListener{
 	private void agregarItemCarrito(DetalleVenta dv) {
 		carrito.agregarItem(dv);
 		vista.setTotal(String.format("%.2f",carrito.getTotalCarrito()));
-		vista.actualizarCarrito();
+		tablaCarrito.fireTableDataChanged();
 	}
 	
 	private void AgregarVentaBD(Cliente c) {

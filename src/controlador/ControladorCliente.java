@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import modelo.Cliente;
 import modelo.ClienteBD;
 import vista.InterfazVista;
+import vista.TablaModel;
 import vista.VentanaCliente;
 
 public class ControladorCliente implements ActionListener {
 
 	private InterfazVista vista;
 	private VentanaCliente ventanaCliente;
+	private TablaModel<Cliente> tablaClientes;
 
 	public ControladorCliente(InterfazVista v) {
 		vista = v;
@@ -22,7 +24,8 @@ public class ControladorCliente implements ActionListener {
 	private void setearTabla() {
 		// Traigo de la base los clientes
 		ClienteBD clienteBD = new ClienteBD();
-		vista.setearClientes(clienteBD.getClientes());
+		tablaClientes = new TablaModel<Cliente>("modelo.Cliente",clienteBD.getClientes());
+		vista.setearClientes(tablaClientes);
 	}
 
 	private void setearControlador() {
@@ -76,11 +79,16 @@ public class ControladorCliente implements ActionListener {
 		c.setNombre(nombre);
 		ClienteBD clienteBD = new ClienteBD();
 		if (clienteBD.insertarCliente(c)){
-			vista.actualizarClientes(clienteBD.getClientes());
+			actualizarTabla();
 			return true;
 		}else return false;
 	}
 
+	private void actualizarTabla(){
+		ClienteBD clienteBD = new ClienteBD();
+		tablaClientes.actualizarTabla(clienteBD.getClientes());
+	}
+	
 	private boolean validarCliente(String operacion, String nombre){
 		if( nombre == null || nombre.equals("")){
 	        vista.errorOperacion("El nombre no puede quedar vacío", operacion);
