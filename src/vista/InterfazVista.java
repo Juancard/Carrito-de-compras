@@ -2,9 +2,9 @@ package vista;
 
 import java.util.ArrayList;
 
-import carrito.Cliente;
-import carrito.DetalleVenta;
-import carrito.Producto;
+import modelo.Cliente;
+import modelo.DetalleVenta;
+import modelo.Producto;
 import controlador.ControladorCarrito;
 import controlador.ControladorCliente;
 import controlador.ControladorProducto;

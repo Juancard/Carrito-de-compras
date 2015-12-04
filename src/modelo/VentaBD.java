@@ -1,4 +1,4 @@
-package carrito;
+package modelo;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

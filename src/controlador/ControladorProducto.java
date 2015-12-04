@@ -3,8 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import carrito.Producto;
-import carrito.ProductoBD;
+import modelo.Producto;
+import modelo.ProductoBD;
 import vista.InterfazVista;
 
 public class ControladorProducto implements ActionListener {

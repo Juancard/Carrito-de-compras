@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import carrito.anotaciones.JTableConfig;
+import modelo.anotaciones.JTableConfig;
 	
 @SuppressWarnings("unchecked") // Permitir casteo a genérico
 public class TablaModel<T> extends AbstractTableModel{
@@ -92,7 +92,7 @@ public class TablaModel<T> extends AbstractTableModel{
 			nombreColumnas[i] = f.getName();
 			getters[i] = null;
 			for (Annotation a : f.getAnnotations()){
-				if (a.toString().startsWith("@carrito.anotaciones.JTableConfig(")){
+				if (a.toString().startsWith("@modelo.anotaciones.JTableConfig(")){
 					nombreColumnas[i] = ((JTableConfig) a).nombre();
 				}
 			}

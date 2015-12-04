@@ -8,13 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableColumnModel;
-
-import carrito.Cliente;
-import carrito.DetalleVenta;
-import carrito.Producto;
-
 import javax.swing.SwingConstants;
 
+import modelo.Cliente;
+import modelo.DetalleVenta;
+import modelo.Producto;
 import controlador.ControladorCarrito;
 import controlador.ControladorCliente;
 import controlador.ControladorProducto;
@@ -162,15 +160,13 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	public void abrirFormularioProducto(String operacion, ControladorProducto c) {
 		if (operacion.equals(this.INSERTAR_PRODUCTO)){
 			ventanaProducto = new VentanaProducto(this.INSERTAR_PRODUCTO);
-			ventanaProducto.btnAceptar.setActionCommand(this.CONFIRMAR_INSERTAR_PRODUCTO);
-			ventanaProducto.btnCancelar.setActionCommand(this.CANCELAR_INSERTAR_PRODUCTO);
+			ventanaProducto.setActionCommand(CONFIRMAR_INSERTAR_PRODUCTO,CANCELAR_INSERTAR_PRODUCTO);
 			ventanaProducto.setControlador(c);
 			ventanaProducto.setVisible(true);
 		}else if(operacion.equals(this.ACTUALIZAR_PRODUCTO)){
 			ventanaProducto = new VentanaProducto(this.ACTUALIZAR_PRODUCTO);
 			ventanaProducto.setControlador(c);
-			ventanaProducto.btnAceptar.setActionCommand(this.CONFIRMAR_ACTUALIZAR_PRODUCTO);
-			ventanaProducto.btnCancelar.setActionCommand(this.CANCELAR_ACTUALIZAR_PRODUCTO);
+			ventanaProducto.setActionCommand(CONFIRMAR_ACTUALIZAR_PRODUCTO,CANCELAR_ACTUALIZAR_PRODUCTO);
 			ventanaProducto.setVisible(true);
 		}
 	}
@@ -256,7 +252,7 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	}
 
 	public void setearProductos(ArrayList<Producto> productos) {
-		tablaProductos = new TablaModel<Producto>("carrito.Producto",productos);
+		tablaProductos = new TablaModel<Producto>("modelo.Producto",productos);
 		tblProducto.setModel(tablaProductos);
 		
 		TableColumnModel columnModelProducto = tblProducto.getColumnModel();
@@ -266,7 +262,7 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	}
 
 	public void setearClientes(ArrayList<Cliente> clientes) {
-		tablaClientes = new TablaModel<Cliente>("carrito.Cliente",clientes);
+		tablaClientes = new TablaModel<Cliente>("modelo.Cliente",clientes);
 		tblCliente.setModel(tablaClientes);
 		
 		TableColumnModel columnModelCliente = tblCliente.getColumnModel();
@@ -289,9 +285,9 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	// METODOS SETTERS Y GETTERS DE VALORES INGRESADOS POR USUARIO
 	
 	public void setValoresDefectoProducto(String codigo, String descripcion,String precio) {
-		ventanaProducto.txtCodigo.setText(codigo);
-		ventanaProducto.txtDescripcion.setText(descripcion);
-		ventanaProducto.txtPrecio.setText(precio);
+		ventanaProducto.setTxtCodigo(codigo);
+		ventanaProducto.setTxtDescripcion(descripcion);
+		ventanaProducto.setTxtPrecio(precio);
 	}
 	
 	public void setValoresDefectoCliente(String codigo, String nombre) {
@@ -305,15 +301,15 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	}
 	
 	public String getTextDescripcionProducto() {
-		return ventanaProducto.txtDescripcion.getText();
+		return ventanaProducto.getTxtDescripcion();
 	}
 
 	public String getTextPrecioProducto() {
-		return ventanaProducto.txtPrecio.getText();
+		return ventanaProducto.getTxtPrecio();
 	}
 
 	public String getTextCodigoProducto() {
-		return ventanaProducto.txtCodigo.getText();
+		return ventanaProducto.getTxtCodigo();
 	}
 
 	public String getTextNombreCliente(){

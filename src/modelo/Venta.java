@@ -1,4 +1,4 @@
-package carrito;
+package modelo;
 import java.sql.Timestamp;
 
 public class Venta {

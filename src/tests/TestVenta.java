@@ -3,10 +3,9 @@ package tests;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import modelo.Cliente;
+import modelo.Venta;
 import junit.framework.Assert;
-
-import carrito.Cliente;
-import carrito.Venta;
 
 public class TestVenta {
 

@@ -1,4 +1,4 @@
-package carrito;
+package modelo;
 
 
 public class DetalleVenta {

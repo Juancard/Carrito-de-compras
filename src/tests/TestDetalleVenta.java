@@ -1,9 +1,8 @@
 package tests;
 
+import modelo.DetalleVenta;
+import modelo.Producto;
 import junit.framework.Assert;
-
-import carrito.DetalleVenta;
-import carrito.Producto;
 
 public class TestDetalleVenta {
 

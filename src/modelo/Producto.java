@@ -1,6 +1,6 @@
-package carrito;
+package modelo;
 
-import carrito.anotaciones.JTableConfig;
+import modelo.anotaciones.JTableConfig;
 
 
 public class Producto {

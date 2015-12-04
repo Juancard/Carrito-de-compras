@@ -1,12 +1,11 @@
 package tests;
 
 import junit.framework.Assert;
+import modelo.CarritoCompras;
+import modelo.DetalleVenta;
+import modelo.Producto;
 
 import org.junit.Test;
-
-import carrito.CarritoCompras;
-import carrito.DetalleVenta;
-import carrito.Producto;
 
 public class TestCarritoCompras {
 

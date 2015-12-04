@@ -3,8 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import carrito.Cliente;
-import carrito.ClienteBD;
+import modelo.Cliente;
+import modelo.ClienteBD;
 import vista.InterfazVista;
 
 public class ControladorCliente implements ActionListener {
@@ -33,8 +33,7 @@ public class ControladorCliente implements ActionListener {
 		if(accion.equals(InterfazVista.INSERTAR_CLIENTE)){
 			vista.abrirFormularioCliente(accion,this);
 			vista.setValoresDefectoCliente("AUTOGENERADO", "");
-		}
-		if(accion.equals(vista.CONFIRMAR_INSERTAR_CLIENTE)){
+		} else if(accion.equals(vista.CONFIRMAR_INSERTAR_CLIENTE)){
 			confirmarInsertarCliente();
 		} else if(accion.equals(vista.CANCELAR_INSERTAR_CLIENTE)){
 			vista.cerrarFormulario(vista.INSERTAR_CLIENTE);

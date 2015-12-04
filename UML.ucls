@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <class id="1" language="java" name="carrito.Cliente" project="CarritoCompras" 
-    file="/CarritoCompras/src/carrito/Cliente.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="132" y="964"/>    
+  <class id="1" language="java" name="modelo.Cliente" project="CarritoCompras" 
+    file="/CarritoCompras/src/modelo/Cliente.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="101" y="945"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="carrito.Producto" project="CarritoCompras" 
-    file="/CarritoCompras/src/carrito/Producto.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="363" y="665"/>    
+  <class id="2" language="java" name="modelo.Producto" project="CarritoCompras" 
+    file="/CarritoCompras/src/modelo/Producto.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="364" y="624"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="carrito.CarritoCompras" project="CarritoCompras" 
-    file="/CarritoCompras/src/carrito/CarritoCompras.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="344" y="364"/>    
+  <class id="3" language="java" name="modelo.CarritoCompras" project="CarritoCompras" 
+    file="/CarritoCompras/src/modelo/CarritoCompras.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="352" y="335"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="carrito.DetalleVenta" project="CarritoCompras" 
-    file="/CarritoCompras/src/carrito/DetalleVenta.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="modelo.DetalleVenta" project="CarritoCompras" 
+    file="/CarritoCompras/src/modelo/DetalleVenta.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="102" y="621"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="vista.VistaPrincipal" project="CarritoCompras" 
     file="/CarritoCompras/src/vista/VistaPrincipal.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="279" width="280" x="519" y="178"/>    
+    <position height="279" width="280" x="513" y="172"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -91,9 +91,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="carrito.Venta" project="CarritoCompras" 
-    file="/CarritoCompras/src/carrito/Venta.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="444" y="960"/>    
+  <class id="11" language="java" name="modelo.Venta" project="CarritoCompras" 
+    file="/CarritoCompras/src/modelo/Venta.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="359" y="914"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -120,7 +120,7 @@
   </class>  
   <class id="14" language="java" name="controlador.ControladorCliente" project="CarritoCompras" 
     file="/CarritoCompras/src/controlador/ControladorCliente.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="656" y="772"/>    
+    <position height="-1" width="-1" x="578" y="771"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -129,7 +129,7 @@
   </class>  
   <class id="15" language="java" name="controlador.ControladorCarrito" project="CarritoCompras" 
     file="/CarritoCompras/src/controlador/ControladorCarrito.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="651" y="568"/>    
+    <position height="-1" width="-1" x="603" y="564"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -206,10 +206,10 @@
   <association id="35">    
     <end type="SOURCE" refId="11" navigable="false">      
       <attribute id="36" name="cliente">        
-        <position height="0" width="0" x="-1052" y="3"/>      
+        <position height="0" width="0" x="-1083" y="-16"/>      
       </attribute>      
       <multiplicity id="37" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-1052" y="3"/>      
+        <position height="0" width="0" x="-1083" y="-16"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
@@ -218,10 +218,10 @@
   <association id="38">    
     <end type="SOURCE" refId="4" navigable="false">      
       <attribute id="39" name="producto">        
-        <position height="0" width="0" x="-160" y="-248"/>      
+        <position height="0" width="0" x="-159" y="-289"/>      
       </attribute>      
       <multiplicity id="40" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-160" y="-248"/>      
+        <position height="0" width="0" x="-159" y="-289"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
@@ -236,13 +236,12 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="44">    
-    <bendpoint x="291" y="813"/>    
     <end type="SOURCE" refId="4" navigable="false">      
       <attribute id="45" name="venta">        
-        <position height="0" width="0" x="-540" y="0"/>      
+        <position height="0" width="0" x="-625" y="-46"/>      
       </attribute>      
       <multiplicity id="46" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-540" y="0"/>      
+        <position height="0" width="0" x="-625" y="-46"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
@@ -273,7 +272,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="53">    
-    <bendpoint x="329" y="120"/>    
+    <bendpoint x="324" y="115"/>    
     <end type="SOURCE" refId="5" navigable="false">      
       <attribute id="54" name="tablaCarrito">        
         <position height="0" width="0" x="-345" y="-387"/>      

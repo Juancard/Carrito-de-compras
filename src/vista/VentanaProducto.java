@@ -9,14 +9,14 @@ import controlador.ControladorProducto;
 
 public class VentanaProducto extends JFrame{
 	
-	JLabel lblCodigo;
-	JLabel lblDescripcion;  
-    JLabel lblPrecio;     
-    JTextField txtCodigo;
-    JTextField txtDescripcion;   
-    JTextField txtPrecio;
-    JButton btnAceptar; 
-    JButton btnCancelar;
+	private JLabel lblCodigo;
+	private JLabel lblDescripcion;  
+	private JLabel lblPrecio;     
+	private JTextField txtCodigo;
+	private JTextField txtDescripcion;   
+	private JTextField txtPrecio;
+	private JButton btnAceptar; 
+	private JButton btnCancelar;
         
     public VentanaProducto(String operacion) {
         super();
@@ -25,7 +25,7 @@ public class VentanaProducto extends JFrame{
         inicializarComponentes();
     }
 
-    private void configurarVentana() {
+	private void configurarVentana() {
         this.setSize(310, 250);                               
         this.setLocationRelativeTo(null);
         this.setLayout(null);
@@ -76,5 +76,35 @@ public class VentanaProducto extends JFrame{
 	public void setControlador(ControladorProducto c) {
         btnAceptar.addActionListener(c);
         btnCancelar.addActionListener(c);	
+	}
+	
+    public String getTxtCodigo() {
+		return txtCodigo.getText();
+	}
+
+	public void setTxtCodigo(String txtCodigo) {
+		this.txtCodigo.setText(txtCodigo);;
+	}
+
+	public String getTxtDescripcion() {
+		return txtDescripcion.getText();
+	}
+
+	public void setTxtDescripcion(String txtDescripcion) {
+		this.txtDescripcion.setText(txtDescripcion);;
+	}
+
+	public String getTxtPrecio() {
+		return txtPrecio.getText();
+	}
+
+	public void setTxtPrecio(String txtPrecio) {
+		this.txtPrecio.setText(txtPrecio);
+	}
+
+	public void setActionCommand(String aceptar,
+			String cancelar) {
+		this.btnAceptar.setActionCommand(aceptar);
+		this.btnCancelar.setActionCommand(cancelar);
 	}
 }

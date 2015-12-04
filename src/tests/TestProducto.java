@@ -1,8 +1,7 @@
 package tests;
 
+import modelo.Producto;
 import junit.framework.Assert;
-
-import carrito.Producto;
 
 public class TestProducto {
 

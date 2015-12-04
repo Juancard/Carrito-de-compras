@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import carrito.DetalleVenta;
+import modelo.DetalleVenta;
 
 public class TablaCarrito extends AbstractTableModel{
 

@@ -2,13 +2,13 @@ package tests;
 
 import java.util.ArrayList;
 
-import carrito.Cliente;
-import carrito.ClienteBD;
-import carrito.DetalleVenta;
-import carrito.Producto;
-import carrito.ProductoBD;
-import carrito.Venta;
-import carrito.VentaBD;
+import modelo.Cliente;
+import modelo.ClienteBD;
+import modelo.DetalleVenta;
+import modelo.Producto;
+import modelo.ProductoBD;
+import modelo.Venta;
+import modelo.VentaBD;
 import junit.framework.Assert;
 
 

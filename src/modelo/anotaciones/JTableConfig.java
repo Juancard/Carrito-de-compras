@@ -1,4 +1,4 @@
-package carrito.anotaciones;
+package modelo.anotaciones;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
