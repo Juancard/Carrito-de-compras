@@ -1,13 +1,13 @@
 package vista;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import carrito.CarritoCompras;
 import carrito.Cliente;
 import carrito.DetalleVenta;
 import carrito.Producto;
-import controlador.Controlador;
+import controlador.ControladorCarrito;
+import controlador.ControladorCliente;
+import controlador.ControladorProducto;
 
 public interface InterfazVista {
 	static final String INSERTAR_PRODUCTO = "Insertar Producto";
@@ -30,8 +30,17 @@ public interface InterfazVista {
 	static final String LIMPIAR_CARRITO = "Limpiar Carrito";
 	static final String FINALIZAR_COMPRA = "Finalizar Compra";
 	
-	public void setControlador(Controlador c);
-	public void abrirFormulario(String nombre, Controlador c);
+	
+	// SETEAR CONTROLADORES
+	public void setControladorProducto(ControladorProducto controladorProducto);
+	public void setControladorCliente(ControladorCliente controladorCliente);
+	public void setControladorCarrito(ControladorCarrito controladorCarrito);
+	
+	// FORMULARIOS
+	public void abrirFormularioCarrito(String operacion, ControladorCarrito c);
+	public void abrirFormularioCliente(String operacion, ControladorCliente c);
+	public void abrirFormularioProducto(String operacion, ControladorProducto c);
+
 	public void cerrarFormulario(String nombre);
 		
 	public void errorOperacion(String causaError, String tituloError);
@@ -65,5 +74,4 @@ public interface InterfazVista {
 	public void actualizarProductos(ArrayList<Producto> productos);
 	public void actualizarCarrito();
 	public void actualizarClientes(ArrayList<Cliente> nuevaLista);
-
 }

@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import controlador.Controlador;
+import controlador.ControladorCarrito;
 
 public class VentanaCarrito extends JFrame{
 
@@ -88,7 +88,7 @@ public class VentanaCarrito extends JFrame{
         btnCancelar.setActionCommand(cancelar);
 	}
 	
-	public void setControlador(Controlador c) {
+	public void setControlador(ControladorCarrito c) {
         btnAceptar.addActionListener(c);
         btnCancelar.addActionListener(c);
 	}

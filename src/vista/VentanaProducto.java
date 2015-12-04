@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import controlador.Controlador;
+import controlador.ControladorProducto;
 
 public class VentanaProducto extends JFrame{
 	
@@ -73,7 +73,7 @@ public class VentanaProducto extends JFrame{
         this.add(btnCancelar);		
 	}
 
-	public void setControlador(Controlador c) {
+	public void setControlador(ControladorProducto c) {
         btnAceptar.addActionListener(c);
         btnCancelar.addActionListener(c);	
 	}

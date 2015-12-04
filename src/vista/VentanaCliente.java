@@ -1,11 +1,11 @@
 package vista;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
-import controlador.Controlador;
 
 public class VentanaCliente extends JFrame{
 	private JLabel lblCodigo;
@@ -65,7 +65,7 @@ public class VentanaCliente extends JFrame{
         btnCancelar = new JButton("Cancelar");		
 	}
 
-	public void setControlador(Controlador c) {
+	public void setControlador(ActionListener c) {
         btnAceptar.addActionListener(c);
         btnCancelar.addActionListener(c);
 	}

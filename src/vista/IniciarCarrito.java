@@ -1,12 +1,19 @@
 package vista;
 
-import controlador.Controlador;
+import controlador.ControladorCarrito;
+import controlador.ControladorCliente;
+import controlador.ControladorProducto;
 
 public class IniciarCarrito {
 	public static void main(String[] args) {
-		VistaPrincipal ip = new VistaPrincipal();
-		Controlador c = new Controlador(ip);
-		ip.setControlador(c);
-		ip.setVisible(true);
+		VistaPrincipal vp = new VistaPrincipal();
+		setControladores( (InterfazVista) vp);
+		vp.setVisible(true);
+	}
+	
+	private static void setControladores(InterfazVista vp){
+		ControladorProducto controladorProducto = new ControladorProducto(vp);
+		ControladorCliente controladorCliente = new ControladorCliente(vp);
+		ControladorCarrito controladorCarrito = new ControladorCarrito(vp);
 	}
 }

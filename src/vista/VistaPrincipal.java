@@ -5,7 +5,6 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.TableColumnModel;
@@ -16,9 +15,12 @@ import carrito.Producto;
 
 import javax.swing.SwingConstants;
 
-import controlador.Controlador;
+import controlador.ControladorCarrito;
+import controlador.ControladorCliente;
+import controlador.ControladorProducto;
 
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VistaPrincipal extends JFrame implements InterfazVista{
@@ -138,17 +140,26 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	
 	// METODOS	
 
-	public void setControlador(Controlador c) {
-		btnInsertarProducto.addActionListener(c);
-		btnActualizarProducto.addActionListener(c);
-		btnInsertarCliente.addActionListener(c);
-		btnAgregarAlCarrito.addActionListener(c);
-		btnBorrarItem.addActionListener(c);
-		btnLimpiarCarrito.addActionListener(c);
-		btnFinalizarCompra.addActionListener(c);
+	@Override
+	public void setControladorProducto(ControladorProducto controladorProducto) {
+		btnInsertarProducto.addActionListener(controladorProducto);
+		btnActualizarProducto.addActionListener(controladorProducto);
 	}
-
-	public void abrirFormulario(String operacion, Controlador c) {
+	
+	@Override
+	public void setControladorCliente(ControladorCliente controladorCliente) {
+		btnInsertarCliente.addActionListener(controladorCliente);
+	}
+	
+	@Override
+	public void setControladorCarrito(ControladorCarrito controladorCarrito) {
+		btnAgregarAlCarrito.addActionListener(controladorCarrito);
+		btnBorrarItem.addActionListener(controladorCarrito);
+		btnLimpiarCarrito.addActionListener(controladorCarrito);
+		btnFinalizarCompra.addActionListener(controladorCarrito);
+	}
+	
+	public void abrirFormularioProducto(String operacion, ControladorProducto c) {
 		if (operacion.equals(this.INSERTAR_PRODUCTO)){
 			ventanaProducto = new VentanaProducto(this.INSERTAR_PRODUCTO);
 			ventanaProducto.btnAceptar.setActionCommand(this.CONFIRMAR_INSERTAR_PRODUCTO);
@@ -161,12 +172,20 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 			ventanaProducto.btnAceptar.setActionCommand(this.CONFIRMAR_ACTUALIZAR_PRODUCTO);
 			ventanaProducto.btnCancelar.setActionCommand(this.CANCELAR_ACTUALIZAR_PRODUCTO);
 			ventanaProducto.setVisible(true);
-		}else if (operacion.equals(this.INSERTAR_CLIENTE)){
+		}
+	}
+
+	public void abrirFormularioCliente(String operacion, ControladorCliente c) {
+		if (operacion.equals(this.INSERTAR_CLIENTE)){
 			ventanaCliente = new VentanaCliente(operacion);
 			ventanaCliente.setControlador(c);
 			ventanaCliente.setActionCommand(CONFIRMAR_INSERTAR_CLIENTE, CANCELAR_INSERTAR_CLIENTE);
 			ventanaCliente.setVisible(true);
-		}else if (operacion.equals(this.AGREGAR_CARRITO)){
+		}
+	}
+	
+	public void abrirFormularioCarrito(String operacion, ControladorCarrito c) {
+		if (operacion.equals(this.AGREGAR_CARRITO)){
 			ventanaCarrito = new VentanaCarrito(operacion);
 			ventanaCarrito.setControlador(c);
 			ventanaCarrito.setActionCommand(CONFIRMAR_AGREGAR_CARRITO, CANCELAR_AGREGAR_CARRITO);
@@ -307,4 +326,5 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	public String getTextCantidadCarrito(){
 		return ventanaCarrito.getTextCantidad();
 	}
+
 }

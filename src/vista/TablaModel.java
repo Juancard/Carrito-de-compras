@@ -92,7 +92,7 @@ public class TablaModel<T> extends AbstractTableModel{
 			nombreColumnas[i] = f.getName();
 			getters[i] = null;
 			for (Annotation a : f.getAnnotations()){
-				if (a.toString().startsWith("@anotaciones.JTableConfig(")){
+				if (a.toString().startsWith("@carrito.anotaciones.JTableConfig(")){
 					nombreColumnas[i] = ((JTableConfig) a).nombre();
 				}
 			}
