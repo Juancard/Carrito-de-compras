@@ -18,15 +18,10 @@ import controlador.ControladorCliente;
 import controlador.ControladorProducto;
 
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class VistaPrincipal extends JFrame implements InterfazVista{
-			
-	private VentanaCliente ventanaCliente;
-	private VentanaProducto ventanaProducto;
-	private VentanaCarrito ventanaCarrito;
-	
+
 	private TablaModel<Producto> tablaProductos;
 	private JTable tblProducto;
 	private TablaModel<Cliente> tablaClientes;
@@ -156,48 +151,6 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 		btnLimpiarCarrito.addActionListener(controladorCarrito);
 		btnFinalizarCompra.addActionListener(controladorCarrito);
 	}
-	
-	public void abrirFormularioProducto(String operacion, ControladorProducto c) {
-		if (operacion.equals(this.INSERTAR_PRODUCTO)){
-			ventanaProducto = new VentanaProducto(this.INSERTAR_PRODUCTO);
-			ventanaProducto.setActionCommand(CONFIRMAR_INSERTAR_PRODUCTO,CANCELAR_INSERTAR_PRODUCTO);
-			ventanaProducto.setControlador(c);
-			ventanaProducto.setVisible(true);
-		}else if(operacion.equals(this.ACTUALIZAR_PRODUCTO)){
-			ventanaProducto = new VentanaProducto(this.ACTUALIZAR_PRODUCTO);
-			ventanaProducto.setControlador(c);
-			ventanaProducto.setActionCommand(CONFIRMAR_ACTUALIZAR_PRODUCTO,CANCELAR_ACTUALIZAR_PRODUCTO);
-			ventanaProducto.setVisible(true);
-		}
-	}
-
-	public void abrirFormularioCliente(String operacion, ControladorCliente c) {
-		if (operacion.equals(this.INSERTAR_CLIENTE)){
-			ventanaCliente = new VentanaCliente(operacion);
-			ventanaCliente.setControlador(c);
-			ventanaCliente.setActionCommand(CONFIRMAR_INSERTAR_CLIENTE, CANCELAR_INSERTAR_CLIENTE);
-			ventanaCliente.setVisible(true);
-		}
-	}
-	
-	public void abrirFormularioCarrito(String operacion, ControladorCarrito c) {
-		if (operacion.equals(this.AGREGAR_CARRITO)){
-			ventanaCarrito = new VentanaCarrito(operacion);
-			ventanaCarrito.setControlador(c);
-			ventanaCarrito.setActionCommand(CONFIRMAR_AGREGAR_CARRITO, CANCELAR_AGREGAR_CARRITO);
-			ventanaCarrito.setVisible(true);
-		}
-	}
-	
-	public void cerrarFormulario(String operacion){
-		if (operacion.equals(INSERTAR_PRODUCTO) || operacion.equals(ACTUALIZAR_PRODUCTO)){
-			ventanaProducto.dispose();
-		}else if(operacion.equals(INSERTAR_CLIENTE)){
-			ventanaCliente.dispose();
-		}else if(operacion.equals(AGREGAR_CARRITO)){
-			ventanaCarrito.dispose();
-		}
-	}
 
 	public void setTotal(String total){
 		txtTotal.setText(total);
@@ -213,7 +166,7 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 		JOptionPane.showMessageDialog(this, mensaje);
 	}
 	
-//METODOS PRIVADOS PARA OBTENER FILAS SELECCIONADAS
+	//METODOS PRIVADOS PARA OBTENER FILAS SELECCIONADAS
 	public boolean isItemSeleccionado(String operacion) {
 		if (operacion.equals(ACTUALIZAR_PRODUCTO) || operacion.equals(AGREGAR_CARRITO)){
 			return -1 != tblProducto.getSelectedRow(); //-1 cuando no hay filas seleccionadas
@@ -237,7 +190,7 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 		}else return null;
 	}
 
-// METODOS DE SETEAR Y ACTUALIZAR TABLAS
+	// METODOS DE SETEAR Y ACTUALIZAR TABLAS
 	public void setearCarrito(ArrayList<DetalleVenta> lista) {
 		tablaCarrito = new TablaCarrito(lista);
 		tblCarrito.setModel(tablaCarrito);
@@ -281,46 +234,4 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	public void actualizarCarrito(){
 		tablaCarrito.fireTableDataChanged();
 	}
-
-	// METODOS SETTERS Y GETTERS DE VALORES INGRESADOS POR USUARIO
-	
-	public void setValoresDefectoProducto(String codigo, String descripcion,String precio) {
-		ventanaProducto.setTxtCodigo(codigo);
-		ventanaProducto.setTxtDescripcion(descripcion);
-		ventanaProducto.setTxtPrecio(precio);
-	}
-	
-	public void setValoresDefectoCliente(String codigo, String nombre) {
-		ventanaCliente.setTextCodigo(codigo);
-		ventanaCliente.setTextNombre(nombre);
-	}
-
-	public void setValoresDefectoCarrito(String descuento,String cantidad) {
-		ventanaCarrito.setTextDescuento(descuento);
-		ventanaCarrito.setTextCantidad(cantidad);
-	}
-	
-	public String getTextDescripcionProducto() {
-		return ventanaProducto.getTxtDescripcion();
-	}
-
-	public String getTextPrecioProducto() {
-		return ventanaProducto.getTxtPrecio();
-	}
-
-	public String getTextCodigoProducto() {
-		return ventanaProducto.getTxtCodigo();
-	}
-
-	public String getTextNombreCliente(){
-		return ventanaCliente.getTextNombre();
-	}
-	
-	public String getTextDescuentoCarrito(){
-		return ventanaCarrito.getTextDescuento();
-	}
-	public String getTextCantidadCarrito(){
-		return ventanaCarrito.getTextCantidad();
-	}
-
 }

@@ -10,11 +10,13 @@ import modelo.Producto;
 import modelo.Venta;
 import modelo.VentaBD;
 import vista.InterfazVista;
+import vista.VentanaCarrito;
 
 public class ControladorCarrito implements ActionListener{
 
 	private InterfazVista vista;
 	private CarritoCompras carrito;
+	private VentanaCarrito ventanaCarrito;
 
 	public ControladorCarrito(InterfazVista v) {
 		this.vista=v;
@@ -39,8 +41,7 @@ public class ControladorCarrito implements ActionListener{
 		//AGREGAR AL CARRITO
 		if(accion.equals(vista.AGREGAR_CARRITO)){
 			if (vista.isItemSeleccionado(accion)){
-				vista.abrirFormularioCarrito(accion, this);
-				vista.setValoresDefectoCarrito("0.00", "1");
+				abrirFormulario(accion);
 			} else vista.errorOperacion("Debe Seleccionar un Producto", accion);
 		// BORRAR ITEM
 		} else if(accion.equals(vista.BORRAR_ITEM)){
@@ -68,15 +69,34 @@ public class ControladorCarrito implements ActionListener{
 		if(accion.equals(vista.CONFIRMAR_AGREGAR_CARRITO)){
 			confirmarAgregarCarrito();
 		} else if(accion.equals(vista.CANCELAR_AGREGAR_CARRITO)){
-			vista.cerrarFormulario(vista.AGREGAR_CARRITO);
+			cerrarFormulario();
 		}
+	}
+
+	private void abrirFormulario(String accion) {
+		if (accion.equals(vista.AGREGAR_CARRITO)){
+			ventanaCarrito = new VentanaCarrito(accion);
+			ventanaCarrito.setControlador(this);
+			ventanaCarrito.setActionCommand(vista.CONFIRMAR_AGREGAR_CARRITO, vista.CANCELAR_AGREGAR_CARRITO);
+			setValoresDefecto("0.00","1");
+			ventanaCarrito.setVisible(true);
+		}
+	}
+
+	private void cerrarFormulario() {
+		ventanaCarrito.dispose();
+	}
+
+	private void setValoresDefecto(String descuento, String cantidad) {
+		ventanaCarrito.setTextDescuento(descuento);
+		ventanaCarrito.setTextCantidad(cantidad);
 	}
 
 	private void confirmarAgregarCarrito() {
 		// Se toman los datos ingresados
 		Producto p = (Producto) vista.getItemSeleccionado(vista.AGREGAR_CARRITO);
-		String descuento = vista.getTextDescuentoCarrito();
-		String cantidad = vista.getTextCantidadCarrito();
+		String descuento = ventanaCarrito.getTextDescuento();
+		String cantidad = ventanaCarrito.getTextCantidad();
 		if (this.validarItemCarrito(vista.AGREGAR_CARRITO, descuento, cantidad)){
 			// Si validacion OK se genera un detalle venta
 			DetalleVenta dv = new DetalleVenta();
@@ -85,7 +105,7 @@ public class ControladorCarrito implements ActionListener{
 			dv.setCantidad(Integer.parseInt(cantidad));
 			// se agrega detalleVenta a carrito
 			agregarItemCarrito(dv);
-			vista.cerrarFormulario(vista.AGREGAR_CARRITO);
+			cerrarFormulario();
 		}
 	}
 	

@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 import modelo.Producto;
 import modelo.ProductoBD;
 import vista.InterfazVista;
+import vista.VentanaProducto;
 
 public class ControladorProducto implements ActionListener {
 
 	private InterfazVista vista;
+	private VentanaProducto ventanaProducto;
 
 	public ControladorProducto(InterfazVista v) {
 		vista = v;
@@ -32,16 +34,11 @@ public class ControladorProducto implements ActionListener {
 		String accion = evento.getActionCommand();
 		//INSERTAR PRODUCTO
 		if (accion.equals(InterfazVista.INSERTAR_PRODUCTO)){
-			vista.abrirFormularioProducto(accion,this);
-			vista.setValoresDefectoProducto("AUTOGENERADO", "", "");
+			abrirFormulario(accion);
 		//ACTUALIZAR PRODUCTO
 		}else if(accion.equals(InterfazVista.ACTUALIZAR_PRODUCTO)){
 			if (vista.isItemSeleccionado(accion)){
-				Producto p = (Producto) vista.getItemSeleccionado(accion);
-				if (p != null){
-					vista.abrirFormularioProducto(accion, this);
-					vista.setValoresDefectoProducto(Integer.toString(p.getCodigoProducto()),p.getDescripcion(),Double.toString(p.getPrecio()));
-				}
+				abrirFormulario(accion);
 			} else vista.errorOperacion("Debe Seleccionar un Producto", accion);
 		}
 		
@@ -49,43 +46,72 @@ public class ControladorProducto implements ActionListener {
 		if (accion.equals(InterfazVista.CONFIRMAR_INSERTAR_PRODUCTO)){
 			confirmarInsertarProducto();
 		} else if(accion.equals(InterfazVista.CANCELAR_INSERTAR_PRODUCTO)){
-	    	vista.cerrarFormulario(vista.INSERTAR_PRODUCTO);
+	    	cerrarFormulario();
 		} else if(accion.equals(InterfazVista.CONFIRMAR_ACTUALIZAR_PRODUCTO)){
 			confirmarActualizarProducto();
 		} else if(accion.equals(InterfazVista.CANCELAR_ACTUALIZAR_PRODUCTO)){
-			vista.cerrarFormulario(vista.ACTUALIZAR_PRODUCTO);
+			cerrarFormulario();
 		}	
 	}
+
+	private void abrirFormulario(String operacion) {
+		if (operacion.equals(vista.INSERTAR_PRODUCTO)){
+			ventanaProducto = new VentanaProducto(operacion);
+			ventanaProducto.setActionCommand(vista.CONFIRMAR_INSERTAR_PRODUCTO,vista.CANCELAR_INSERTAR_PRODUCTO);
+			ventanaProducto.setControlador(this);
+			setValoresDefecto("AUTOGENERADO","","");
+			ventanaProducto.setVisible(true);
+		}else if(operacion.equals(vista.ACTUALIZAR_PRODUCTO)){
+			ventanaProducto = new VentanaProducto(vista.ACTUALIZAR_PRODUCTO);
+			ventanaProducto.setControlador(this);
+			ventanaProducto.setActionCommand(vista.CONFIRMAR_ACTUALIZAR_PRODUCTO,vista.CANCELAR_ACTUALIZAR_PRODUCTO);
+			// Pido item seleccionado y lo cargo en formulario
+			Producto p = (Producto) vista.getItemSeleccionado(operacion);
+			if (p != null){
+				setValoresDefecto(Integer.toString(p.getCodigoProducto()),p.getDescripcion(),Double.toString(p.getPrecio()));
+			}
+			ventanaProducto.setVisible(true);
+		}
+	}
 	
+	private void cerrarFormulario() {
+		ventanaProducto.dispose();
+	}
+
+	private void setValoresDefecto(String codigo, String descripcion, String precio) {
+		ventanaProducto.setTxtCodigo(codigo);
+		ventanaProducto.setTxtDescripcion(descripcion);
+		ventanaProducto.setTxtPrecio(precio);
+	}
+
 	private void confirmarInsertarProducto() {
-		String descripcion = vista.getTextDescripcionProducto();
-		String precio = vista.getTextPrecioProducto();
+		String descripcion = ventanaProducto.getTxtDescripcion();
+		String precio = ventanaProducto.getTxtPrecio();
    		// VALIDO Y AGREGO PRODUCTO A BD
 		if (validarProducto(vista.INSERTAR_PRODUCTO,descripcion,precio) 
 				&& insertarProductoBD(descripcion,Double.parseDouble(precio))){
 			vista.operacionCorrecta("Producto Agregado");
-			vista.cerrarFormulario(vista.INSERTAR_PRODUCTO);
+			cerrarFormulario();
 		}
 		
 	}
 	
 	private void confirmarActualizarProducto() {
 			// Se toman los datos ingresados
-		String descripcion = vista.getTextDescripcionProducto();
-		String precio = vista.getTextPrecioProducto();
+		String descripcion = ventanaProducto.getTxtDescripcion();
+		String precio = ventanaProducto.getTxtPrecio();
 			// Chequeo validez de los datos
 		if (this.validarProducto(vista.ACTUALIZAR_PRODUCTO, descripcion, precio)){
 			// Como no permito editar Código, no realizo validacion.
-			int codigo = Integer.parseInt(vista.getTextCodigoProducto());
+			int codigo = Integer.parseInt(ventanaProducto.getTxtCodigo());
 			Double precioParseado = Double.parseDouble(precio);
 			// Si todo salió bien se actualiza producto en BD.
 			if (actualizarProductoBD(codigo, descripcion, precioParseado)){
 				vista.operacionCorrecta("Producto Actualizado");
-				vista.cerrarFormulario(vista.ACTUALIZAR_PRODUCTO);
+				cerrarFormulario();
 			}
 		}
 	}
-	
 	
 	private boolean insertarProductoBD(String descripcion, Double precio){
 		Producto p = new Producto();

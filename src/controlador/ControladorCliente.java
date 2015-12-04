@@ -6,10 +6,12 @@ import java.awt.event.ActionListener;
 import modelo.Cliente;
 import modelo.ClienteBD;
 import vista.InterfazVista;
+import vista.VentanaCliente;
 
 public class ControladorCliente implements ActionListener {
 
 	private InterfazVista vista;
+	private VentanaCliente ventanaCliente;
 
 	public ControladorCliente(InterfazVista v) {
 		vista = v;
@@ -31,23 +33,41 @@ public class ControladorCliente implements ActionListener {
 	public void actionPerformed(ActionEvent evento) {
 		String accion = evento.getActionCommand();
 		if(accion.equals(InterfazVista.INSERTAR_CLIENTE)){
-			vista.abrirFormularioCliente(accion,this);
-			vista.setValoresDefectoCliente("AUTOGENERADO", "");
+			abrirFormulario(accion);
 		} else if(accion.equals(vista.CONFIRMAR_INSERTAR_CLIENTE)){
 			confirmarInsertarCliente();
 		} else if(accion.equals(vista.CANCELAR_INSERTAR_CLIENTE)){
-			vista.cerrarFormulario(vista.INSERTAR_CLIENTE);
+			cerrarFormulario();
 		}
+	}
+
+	private void abrirFormulario(String accion) {
+		if (accion.equals(vista.INSERTAR_CLIENTE)){
+			ventanaCliente = new VentanaCliente(accion);
+			ventanaCliente.setControlador(this);
+			ventanaCliente.setActionCommand(vista.CONFIRMAR_INSERTAR_CLIENTE, vista.CANCELAR_INSERTAR_CLIENTE);
+			setValoresDefecto("AUTOGENERADO", "");
+			ventanaCliente.setVisible(true);
+		}
+	}
+	
+	private void setValoresDefecto(String codigo, String nombre) {
+		ventanaCliente.setTextCodigo(codigo);
+		ventanaCliente.setTextNombre(nombre);
+	}
+
+	private void cerrarFormulario(){
+		ventanaCliente.dispose();
 	}
 
 	private void confirmarInsertarCliente() {
 			// Se toman los datos ingresados
-		String nombre = vista.getTextNombreCliente();
+		String nombre = ventanaCliente.getTextNombre();
 			// Chequeo validez de los datos y
 			// Si se agrega cliente a BD la operacion es correcta
 		if (validarCliente(vista.INSERTAR_CLIENTE, nombre) && insertarClienteBD(nombre)) {
 			vista.operacionCorrecta("Cliente Agregado");
-			vista.cerrarFormulario(vista.INSERTAR_CLIENTE);
+			cerrarFormulario();
 		}
 	}
 	

@@ -35,13 +35,6 @@ public interface InterfazVista {
 	public void setControladorProducto(ControladorProducto controladorProducto);
 	public void setControladorCliente(ControladorCliente controladorCliente);
 	public void setControladorCarrito(ControladorCarrito controladorCarrito);
-	
-	// FORMULARIOS
-	public void abrirFormularioCarrito(String operacion, ControladorCarrito c);
-	public void abrirFormularioCliente(String operacion, ControladorCliente c);
-	public void abrirFormularioProducto(String operacion, ControladorProducto c);
-
-	public void cerrarFormulario(String nombre);
 		
 	public void errorOperacion(String causaError, String tituloError);
 	public void operacionCorrecta(String operacion);
@@ -49,22 +42,7 @@ public interface InterfazVista {
 	public Object getItemSeleccionado(String operacion);
 	public boolean isItemSeleccionado(String operacion);
 	
-	//METODOS DE PRODUCTO
-	public void setValoresDefectoProducto(String codigo, String descripcion, String precio);
-	public String getTextDescripcionProducto();
-	public String getTextPrecioProducto();
-	public String getTextCodigoProducto();
-	
-	//METODOS DE CLIENTE
-	public void setValoresDefectoCliente(String codigo, String nombre);
-	public String getTextNombreCliente();
-	
-	//METODOS DE CARRITO
-	public void setValoresDefectoCarrito(String descuento, String cantidad);
-	public String getTextDescuentoCarrito();
-	public String getTextCantidadCarrito();
 	public void setTotal(String total);
-	
 	
 	//METODOS DE TABLAS
 	public void setearCarrito(ArrayList<DetalleVenta> itemsCarrito);
