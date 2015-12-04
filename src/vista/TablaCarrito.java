@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import carrito.CarritoCompras;
 import carrito.DetalleVenta;
 
 public class TablaCarrito extends AbstractTableModel{
@@ -12,9 +11,9 @@ public class TablaCarrito extends AbstractTableModel{
 	private String[] nombreColumnas;
 	private ArrayList<DetalleVenta> lista;
 	
-	public TablaCarrito(ArrayList<DetalleVenta> arreglo){
+	public TablaCarrito(ArrayList<DetalleVenta> lista){
 		super();
-		lista = arreglo;
+		this.lista=lista;
 		String[] columnas = {"Cod. Prod.","Descripcion","Precio Unit.","Cantidad","Desc. Total","Subtotal"};
 		nombreColumnas = columnas;
 	}
@@ -56,9 +55,5 @@ public class TablaCarrito extends AbstractTableModel{
 	public boolean isCellEditable(int fila, int columna){
         return false;
     }
-	
-	public void actualizarTabla(){
-		fireTableDataChanged();
-	}
 
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.AbstractTableModel;
 
-import anotaciones.JTableConfig;
+import carrito.anotaciones.JTableConfig;
 	
 @SuppressWarnings("unchecked") // Permitir casteo a genérico
 public class TablaModel<T> extends AbstractTableModel{

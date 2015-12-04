@@ -4,7 +4,7 @@ import controlador.Controlador;
 
 public class IniciarCarrito {
 	public static void main(String[] args) {
-		InterfazPrincipal ip = new InterfazPrincipal();
+		VistaPrincipal ip = new VistaPrincipal();
 		Controlador c = new Controlador(ip);
 		ip.setControlador(c);
 		ip.setVisible(true);

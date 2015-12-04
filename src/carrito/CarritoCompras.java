@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CarritoCompras {
 
-	public static final int NO_ENCONTRADO = -1; // IndexOf devuelve -1 cuando no encuentra elemento en arreglo.
+	public final int NO_ENCONTRADO = -1; // IndexOf devuelve -1 cuando no encuentra elemento en arreglo.
 	
 	private ArrayList<DetalleVenta> arregloCarrito;
 	

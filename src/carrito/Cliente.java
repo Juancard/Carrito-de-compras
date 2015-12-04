@@ -1,6 +1,7 @@
 package carrito;
 
-import anotaciones.JTableConfig;
+import carrito.anotaciones.JTableConfig;
+
 
 public class Cliente {
 	@JTableConfig(nombre="Cod.")
