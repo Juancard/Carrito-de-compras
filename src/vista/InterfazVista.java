@@ -1,17 +1,13 @@
 package vista;
 
-import java.util.ArrayList;
-
 import javax.swing.table.AbstractTableModel;
 
-import modelo.Cliente;
-import modelo.DetalleVenta;
-import modelo.Producto;
 import controlador.ControladorCarrito;
 import controlador.ControladorCliente;
 import controlador.ControladorProducto;
+import controlador.ControladorReporte;
 
-public interface InterfazVista {
+public interface InterfazVista{
 	static final String INSERTAR_PRODUCTO = "Insertar Producto";
 	static final String CONFIRMAR_INSERTAR_PRODUCTO = "Confirmar Insertar Producto";
 	static final String CANCELAR_INSERTAR_PRODUCTO = "Cancelar Insertar Producto";
@@ -32,11 +28,16 @@ public interface InterfazVista {
 	static final String LIMPIAR_CARRITO = "Limpiar Carrito";
 	static final String FINALIZAR_COMPRA = "Finalizar Compra";
 	
+	static final String HISTORICO_VENTAS = "Historico de Ventas";
+	
 	
 	// SETEAR CONTROLADORES
 	public void setControladorProducto(ControladorProducto controladorProducto);
 	public void setControladorCliente(ControladorCliente controladorCliente);
 	public void setControladorCarrito(ControladorCarrito controladorCarrito);
+	public void setControladorReporte(ControladorReporte controladorReporte);
+	
+	public void setBotonActionCommand();
 		
 	// MENSAJES
 	public void errorOperacion(String causaError, String tituloError);

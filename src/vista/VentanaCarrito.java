@@ -1,5 +1,9 @@
 package vista;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,67 +11,88 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 import controlador.ControladorCarrito;
 
 public class VentanaCarrito extends JFrame{
 
-	private JLabel lblDescuento;
+	private JTextField txtCodigo;
+	private JTextField txtDescripcion;
 	private JTextField txtDescuento;
-	private JLabel lblCantidad;
 	private JTextField txtCantidad;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
+
 	
 	public VentanaCarrito(String titulo){
-		super();
-        this.setTitle(titulo);                   
-        configurarVentana();
-        inicializarComponentes();
-	}
-
-	private void configurarVentana() {
-        this.setSize(235, 170);                               
-        this.setLocationRelativeTo(null);
-        this.setLayout(null);
+        super();
+    	this.setTitle(titulo);
+        this.setLayout(new BorderLayout());
         this.setResizable(false);
-    }
-
-    private void inicializarComponentes() {
-    		//Instancio componentes
-    	instanciarComponentes();
-        	// Posicion en ventana
-    	posicionarComponentes();    	
-        	//Agrego Componentes
-    	agregarComponentes();        
+        
+        //Instancio componentes
+    	txtCodigo = new JTextField(20);
+    	txtCodigo.setEditable(false);
+    	txtDescripcion = new JTextField(20);
+    	txtDescripcion.setEditable(false);
+		txtDescuento = new JTextField(20);
+        txtCantidad = new JTextField(20);
+        btnAceptar = new JButton("Aceptar");
+        btnCancelar = new JButton("Cancelar");
+        
+        // Seteo Paneles
+		JPanel panelCampos = new JPanel(new BorderLayout());
+		this.add(panelCampos, BorderLayout.CENTER);
+		TitledBorder borde = new TitledBorder("Planilla Carrito");
+		borde.setTitleFont(new Font(Font.DIALOG_INPUT,Font.PLAIN,16));
+		borde.setTitleColor(Color.getHSBColor(20, 20, 0));
+		panelCampos.setBorder(borde);
+		
+		JPanel panelProducto = new JPanel(new BorderLayout());
+		panelCampos.add(panelProducto, BorderLayout.NORTH);
+		
+		JPanel panelCodigo = new JPanel(new BorderLayout());
+		panelProducto.add(panelCodigo, BorderLayout.NORTH);
+		panelCodigo.add(txtCodigo, BorderLayout.CENTER);
+		panelCodigo.setBorder(new TitledBorder("Codigo"));
+		
+		JPanel panelNombre = new JPanel(new BorderLayout());
+		panelProducto.add(panelNombre, BorderLayout.CENTER);
+		panelNombre.add(txtDescripcion, BorderLayout.CENTER);
+		panelNombre.setBorder(new TitledBorder("Descripcion"));
+		
+		JPanel panelCantidad = new JPanel(new BorderLayout());
+		panelCampos.add(panelCantidad, BorderLayout.CENTER);
+		panelCantidad.add(txtCantidad, BorderLayout.CENTER);
+		panelCantidad.setBorder(new TitledBorder("Cantidad"));
+		
+		JPanel panelDescuento = new JPanel(new BorderLayout());
+		panelCampos.add(panelDescuento, BorderLayout.SOUTH);
+		panelDescuento.add(txtDescuento, BorderLayout.CENTER);
+		panelDescuento.setBorder(new TitledBorder("Descuento parcial"));
+		
+		JPanel panelBotonera = new JPanel();
+		this.add(panelBotonera, BorderLayout.SOUTH);
+		
+		panelBotonera.add(btnAceptar);
+		panelBotonera.add(btnCancelar);
+        
+        // Empaqueto y acomodo en pantalla
+    	this.pack();
+        this.setLocationRelativeTo(null);
+	}
+	
+	public void setTextCodigo(String codigo) {
+		this.txtCodigo.setText(codigo);
 	}
 
-	private void instanciarComponentes() {
-    	lblDescuento = new JLabel("Descuento total aplicado: ");
-    	txtDescuento = new JTextField();
-    	lblCantidad = new JLabel("Cantidad solicitada: ");
-    	txtCantidad = new JTextField();
-    	btnAceptar = new JButton("Aceptar");
-    	btnCancelar = new JButton("Cancelar");
+	public void setTextDescripcion(String txtDescripcion) {
+		this.txtDescripcion.setText(txtDescripcion);
 	}
-	private void agregarComponentes() {
-        this.add(lblDescuento);
-        this.add(txtDescuento);
-        this.add(lblCantidad);
-        this.add(txtCantidad);        
-        this.add(btnAceptar);
-        this.add(btnCancelar);		
-	}
-	private void posicionarComponentes() {
-        lblDescuento.setBounds(18, 20, 150, 25);   //  (x, y, ancho, alto)
-        txtDescuento.setBounds(165, 20, 50, 25);
-        lblCantidad.setBounds(50, 50, 120, 25);
-        txtCantidad.setBounds(165, 50, 50, 25);
-        btnAceptar.setBounds(13, 90, 100, 30);
-        btnCancelar.setBounds(118, 90, 100, 30);		
-	}
-
+	
 	public void setTextDescuento(String descuento) {
 		txtDescuento.setText(descuento);
 	}

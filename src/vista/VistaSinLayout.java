@@ -11,15 +11,14 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.SwingConstants;
 
-import modelo.Cliente;
-import modelo.Producto;
 import controlador.ControladorCarrito;
 import controlador.ControladorCliente;
 import controlador.ControladorProducto;
+import controlador.ControladorReporte;
 
 import java.awt.Insets;
 
-public class VistaPrincipal extends JFrame implements InterfazVista{
+public class VistaSinLayout extends JFrame implements InterfazVista{
 
 	private JTable tblProducto;
 	private JTable tblCliente;
@@ -35,7 +34,7 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 	private JButton btnLimpiarCarrito;
 	private JButton btnFinalizarCompra;
 
-	public VistaPrincipal() {
+	public VistaSinLayout() {
 		setBounds(175, 175, 700, 500);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,49 +86,41 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 		btnInsertarProducto = new JButton(this.INSERTAR_PRODUCTO);		
 		btnInsertarProducto.setBounds(21, 26, 201, 21);		
 		getContentPane().add(btnInsertarProducto);
-		btnInsertarProducto.setActionCommand(this.INSERTAR_PRODUCTO);
 
 		//BOTON ACTUALIZAR PRODUCTO
 		btnActualizarProducto = new JButton(this.ACTUALIZAR_PRODUCTO);		
 		btnActualizarProducto.setBounds(230, 26, 182, 21);
 		getContentPane().add(btnActualizarProducto);
-		btnActualizarProducto.setActionCommand(this.ACTUALIZAR_PRODUCTO);
 		
 		//BOTON INSERTAR CLIENTE
 		btnInsertarCliente = new JButton(INSERTAR_CLIENTE);
 		btnInsertarCliente.setBounds(438, 26, 220, 21);
 		getContentPane().add(btnInsertarCliente);
-		btnInsertarCliente.setActionCommand(INSERTAR_CLIENTE);
 
 		// BOTON AGREGAR AL CARRITO
 		btnAgregarAlCarrito = new JButton(AGREGAR_CARRITO);
 		btnAgregarAlCarrito.setBounds(21, 233, 391, 36);
 		getContentPane().add(btnAgregarAlCarrito);
-		btnAgregarAlCarrito.setActionCommand(AGREGAR_CARRITO);
 		
 		// BOTON BORRAR ITEM
 		btnBorrarItem = new JButton(this.BORRAR_ITEM);
-		btnBorrarItem.setActionCommand(this.BORRAR_ITEM);
 		btnBorrarItem.setBounds(530, 304, 128, 21);
 		getContentPane().add(btnBorrarItem);
 		
 		// BOTON LIMPIAR CARRITO
 		btnLimpiarCarrito = new JButton(LIMPIAR_CARRITO);
-		btnLimpiarCarrito.setActionCommand(LIMPIAR_CARRITO);
 		btnLimpiarCarrito.setBounds(530, 328, 128, 21);
 		getContentPane().add(btnLimpiarCarrito);
 		
 		//BOTON FINALIZAR COMPRA
 		btnFinalizarCompra = new JButton(FINALIZAR_COMPRA);
 		btnFinalizarCompra.setMargin(new Insets(2, 10, 2, 10));
-		btnFinalizarCompra.setActionCommand(FINALIZAR_COMPRA);
 		btnFinalizarCompra.setBounds(530, 360, 128, 61);
 		getContentPane().add(btnFinalizarCompra);	
 	}
 	
 	// METODOS	
 
-	
 	// SETEAR CONTROLADORES
 	@Override
 	public void setControladorProducto(ControladorProducto controladorProducto) {
@@ -150,6 +141,17 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 		btnFinalizarCompra.addActionListener(controladorCarrito);
 	}
 
+	@Override
+	public void setBotonActionCommand() {
+		btnInsertarProducto.setActionCommand(INSERTAR_PRODUCTO);
+		btnActualizarProducto.setActionCommand(ACTUALIZAR_PRODUCTO);
+		btnInsertarCliente.setActionCommand(INSERTAR_CLIENTE);
+		btnAgregarAlCarrito.setActionCommand(AGREGAR_CARRITO);
+		btnBorrarItem.setActionCommand(BORRAR_ITEM);
+		btnLimpiarCarrito.setActionCommand(LIMPIAR_CARRITO);
+		btnFinalizarCompra.setActionCommand(FINALIZAR_COMPRA);
+	}
+	
 	public void setTotal(String total){
 		txtTotal.setText(total);
 	}
@@ -212,5 +214,11 @@ public class VistaPrincipal extends JFrame implements InterfazVista{
 		TableColumnModel columnModelCliente = tblCliente.getColumnModel();
 		columnModelCliente.getColumn(0).setPreferredWidth(20);
 		columnModelCliente.getColumn(1).setPreferredWidth(100);
+	}
+
+	@Override
+	public void setControladorReporte(ControladorReporte controladorReporte) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

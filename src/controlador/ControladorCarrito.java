@@ -56,15 +56,15 @@ public class ControladorCarrito implements ActionListener{
 			} else vista.errorOperacion("Debe Seleccionar un Item del Carrito", accion);
 		// LIMPIAR CARRITO
 		} else if(accion.equals(vista.LIMPIAR_CARRITO)){
-			carrito.borrarCarrito();
-			tablaCarrito.fireTableDataChanged();
-			vista.setTotal("0.00");
+			limpiarCarrito();
+		// FINALIZAR COMPRA
 		} else if (accion.equals(vista.FINALIZAR_COMPRA)){
 			if (carrito.getCarrito().isEmpty()){
 				vista.errorOperacion("Carrito Vacio: Seleccione un Producto de la Lista", accion);
 			} else if(vista.isItemSeleccionado(accion)){
 				Cliente c = (Cliente) vista.getItemSeleccionado(accion);
 				AgregarVentaBD(c);
+				limpiarCarrito();
 			} else vista.errorOperacion("Debe Seleccionar un Cliente", accion);
 		}
 		
@@ -81,7 +81,9 @@ public class ControladorCarrito implements ActionListener{
 			ventanaCarrito = new VentanaCarrito(accion);
 			ventanaCarrito.setControlador(this);
 			ventanaCarrito.setActionCommand(vista.CONFIRMAR_AGREGAR_CARRITO, vista.CANCELAR_AGREGAR_CARRITO);
-			setValoresDefecto("0.00","1");
+			Producto p = (Producto) vista.getItemSeleccionado(accion);
+			String codigo = Integer.toString(p.getCodigoProducto());
+			setValoresDefecto(codigo,p.getDescripcion(),"0.00","1");
 			ventanaCarrito.setVisible(true);
 		}
 	}
@@ -90,7 +92,9 @@ public class ControladorCarrito implements ActionListener{
 		ventanaCarrito.dispose();
 	}
 
-	private void setValoresDefecto(String descuento, String cantidad) {
+	private void setValoresDefecto(String codigo, String descripcion, String descuento, String cantidad) {
+		ventanaCarrito.setTextCodigo(codigo);
+		ventanaCarrito.setTextDescripcion(descripcion);
 		ventanaCarrito.setTextDescuento(descuento);
 		ventanaCarrito.setTextCantidad(cantidad);
 	}
@@ -125,6 +129,12 @@ public class ControladorCarrito implements ActionListener{
 		if (ventaBD.insertarVenta(venta, carrito.getCarrito())){
 			vista.operacionCorrecta("¡Su compra ha sido realizada con éxito!");
 		}
+	}
+	
+	private void limpiarCarrito(){
+		carrito.borrarCarrito();
+		tablaCarrito.fireTableDataChanged();
+		vista.setTotal("0.00");
 	}
 	
 	private boolean validarItemCarrito(String operacion, String descuento, String cantidad){
