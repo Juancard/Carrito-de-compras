@@ -8,7 +8,7 @@ public class DetalleVenta {
 	private double descuento = 0;
 	
 	private Producto producto;
-    private Venta venta;	
+    //private Venta venta;	
 	
 	public DetalleVenta(){
 		

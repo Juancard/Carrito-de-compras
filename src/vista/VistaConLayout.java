@@ -2,9 +2,6 @@ package vista;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Paint;
 
 import javax.swing.JFrame;
 
@@ -18,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumnModel;
@@ -28,7 +24,6 @@ import controlador.ControladorCliente;
 import controlador.ControladorProducto;
 import controlador.ControladorReporte;
 
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.LineBorder;
 
 public class VistaConLayout extends JFrame implements InterfazVista{
@@ -211,10 +206,10 @@ public class VistaConLayout extends JFrame implements InterfazVista{
 		if (operacion.equals(ACTUALIZAR_PRODUCTO) || operacion.equals(AGREGAR_CARRITO)){
 			int filaSeleccionada = tblProducto.getSelectedRow();
 			return tblProducto.getValueAt(filaSeleccionada, -1); // "-1" trae objeto entero.
-		} else if(operacion == this.BORRAR_ITEM){
+		} else if(operacion.equals(BORRAR_ITEM)){
 			int filaSeleccionada = tblCarrito.getSelectedRow();
 			return tblCarrito.getValueAt(filaSeleccionada, -1);
-		}else if(operacion.equals(this.FINALIZAR_COMPRA)){
+		}else if(operacion.equals(FINALIZAR_COMPRA)){
 			int filaSeleccionada = tblCliente.getSelectedRow();
 			return tblCliente.getValueAt(filaSeleccionada, -1);
 		}else return null;

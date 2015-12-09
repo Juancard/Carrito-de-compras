@@ -161,5 +161,4 @@ public class ControladorProducto implements ActionListener {
 	        return false;
 	    }else return true;
 	}
-
 }

@@ -2,7 +2,6 @@ package modelo;
 
 import modelo.anotaciones.JTableConfig;
 
-
 public class Producto {
 	
 	@JTableConfig(nombre="Cod.")
