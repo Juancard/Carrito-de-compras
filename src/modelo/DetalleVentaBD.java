@@ -17,7 +17,7 @@ public class DetalleVentaBD {
 		
 		try {			
 			// SE PREPARA LA CONSULTA
-			String consulta = "{ call insertar_detalleventa( ?, ?, ?, ? ) }";
+			String consulta = "{ call insertar_detalleventa( ?, ?, ?, ?,? ) }";
 			cst = c.prepareCall(consulta);
 			
 			// PARAMETROS DE SALIDA
@@ -25,13 +25,15 @@ public class DetalleVentaBD {
 			cst.registerOutParameter(2, Types.INTEGER);
 			cst.registerOutParameter(3, Types.INTEGER);
 			cst.registerOutParameter(4, Types.NUMERIC);	
-			
+			cst.registerOutParameter(5, Types.NUMERIC);	
+
 
 			// PARAMETROS DE ENTRADA
 			cst.setInt(1, detalleVenta.getCodigoVenta());
 			cst.setInt(2, detalleVenta.getCodigoProducto());
 			cst.setInt(3, detalleVenta.getCantidad());
 			cst.setBigDecimal(4, new java.math.BigDecimal(detalleVenta.getDescuento())); // Se castea double a numeric.
+			cst.setBigDecimal(5, new java.math.BigDecimal(detalleVenta.getPrecioUnitario())); // Se castea double a numeric.
 			
 			// LLAMADO A PROCEDIMIENTO
 			if (cst.executeUpdate() == 0){

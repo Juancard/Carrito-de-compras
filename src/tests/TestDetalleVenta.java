@@ -49,6 +49,16 @@ public class TestDetalleVenta {
 		Assert.assertEquals(descuento, dv.getDescuento(),0.01);		
 	}
 	@org.junit.Test
+	public void testDetalleVentaPrecioUnitario() {
+			
+		DetalleVenta dv = new DetalleVenta();
+
+		double precioUnitario = 100.00;
+		
+		dv.setPrecioUnitario(precioUnitario);
+		Assert.assertEquals(precioUnitario, dv.getPrecioUnitario(),0.01);		
+	}
+	@org.junit.Test
 	public void testDetalleVentaAgregarDescuento() {
 			
 		DetalleVenta dv = new DetalleVenta();

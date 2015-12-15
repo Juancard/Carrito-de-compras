@@ -6,7 +6,8 @@ public class DetalleVenta {
 	private int codigoProducto;
 	private int cantidad = 0;
 	private double descuento = 0;
-	
+	private double precioUnitario;
+
 	private Producto producto;
     //private Venta venta;	
 	
@@ -51,6 +52,12 @@ public class DetalleVenta {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
+	public double getPrecioUnitario() {
+		return this.precioUnitario;
+	}
+	public void setPrecioUnitario(double precioUnitario) {
+		this.precioUnitario=precioUnitario;
+	}
 	public void agregarCantidad(int cantidad){
 		this.cantidad += cantidad;
 	}
@@ -61,7 +68,7 @@ public class DetalleVenta {
 	
 	public double getSubtotal(){
 		double precio = producto.getPrecio();
-		return cantidad * precio - descuento;
+		return cantidad * precioUnitario - descuento;
 	}
 	
 	@Override
@@ -73,5 +80,7 @@ public class DetalleVenta {
 		}
 		else return false;
 	}
+
+
 
 }

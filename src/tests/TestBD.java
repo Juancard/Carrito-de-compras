@@ -108,11 +108,13 @@ public class TestBD {
 		int codigoVenta = 5;
 		int codigoProducto = 10;
 		int cantidad = 2;
-		int descuento = 5;
+		double descuento = 5.5;
+		double precioUnitario = 100.20;
 		detalleVenta.setCodigoVenta(codigoVenta);
 		detalleVenta.setCodigoProducto(codigoProducto);
 		detalleVenta.setCantidad(cantidad);
 		detalleVenta.setDescuento(descuento);
+		detalleVenta.setPrecioUnitario(precioUnitario);
 		
 		//Genero objeto DetalleVentaBD y realizo prueba
 		DetalleVentaBD detalleBD = new DetalleVentaBD();

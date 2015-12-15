@@ -7,7 +7,6 @@
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<parameter name="pathImagen" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT v.codigo_venta,
     c.codigo_cliente,
@@ -15,14 +14,13 @@
     v.fecha,
     d.codigo_producto,
     p.descripcion,
-    p.precio,
+    d.precio_unitario,
     d.cantidad,
     d.descuento,
-    p.precio * d.cantidad::numeric AS parcial,
-    p.precio * d.cantidad::numeric - d.descuento AS subtotal,
-    ( SELECT sum(dt.cantidad::numeric * pt.precio - dt.descuento) AS totalpagar
+    d.precio_unitario * d.cantidad::numeric AS parcial,
+    d.precio_unitario * d.cantidad::numeric - d.descuento AS subtotal,
+    ( SELECT sum(dt.cantidad::numeric * dt.precio_unitario - dt.descuento) AS totalpagar
            FROM detalleventa dt
-             JOIN producto pt ON dt.codigo_producto = pt.codigo_producto
           WHERE dt.codigo_venta = v.codigo_venta) AS totalpagar
    FROM venta v
      JOIN detalleventa d ON v.codigo_venta = d.codigo_venta
@@ -34,7 +32,7 @@
 	<field name="nombre" class="java.lang.String"/>
 	<field name="fecha" class="java.sql.Date"/>
 	<field name="descripcion" class="java.lang.String"/>
-	<field name="precio" class="java.math.BigDecimal"/>
+	<field name="precio_unitario" class="java.math.BigDecimal"/>
 	<field name="cantidad" class="java.lang.Integer"/>
 	<field name="descuento" class="java.math.BigDecimal"/>
 	<field name="subtotal" class="java.math.BigDecimal"/>
@@ -46,7 +44,7 @@
 		<band height="70" splitType="Stretch">
 			<image>
 				<reportElement x="-20" y="0" width="595" height="64" uuid="d91c2d9a-5952-4a20-96c4-b40fbc41eb91"/>
-				<imageExpression><![CDATA[$P{pathImagen}]]></imageExpression>
+				<imageExpression><![CDATA["wood.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement style="Title" x="0" y="5" width="263" height="33" uuid="b12b898f-d6fc-40c1-aa2d-b90d93066851"/>
@@ -141,7 +139,7 @@
 			</textField>
 			<textField>
 				<reportElement style="Detail" x="323" y="0" width="49" height="15" uuid="030c7347-1050-451d-893e-7d1bd6c0b6c6"/>
-				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precio_unitario}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement style="Detail" x="372" y="0" width="30" height="15" uuid="c8bd80dd-7725-467b-87fa-9aca9234fde5"/>

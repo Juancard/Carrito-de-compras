@@ -60,7 +60,7 @@ public class ControladorCarrito implements ActionListener{
 		// FINALIZAR COMPRA
 		} else if (accion.equals(vista.FINALIZAR_COMPRA)){
 			if (carrito.getCarrito().isEmpty()){
-				vista.errorOperacion("Carrito Vacio: Seleccione un Producto de la Lista", accion);
+				vista.errorOperacion("Carrito Vacio: Seleccione un producto de la lista", accion);
 			} else if(vista.isItemSeleccionado(accion)){
 				Cliente c = (Cliente) vista.getItemSeleccionado(accion);
 				AgregarVentaBD(c);
@@ -110,6 +110,7 @@ public class ControladorCarrito implements ActionListener{
 			dv.setProducto(p);
 			dv.setDescuento(Double.parseDouble(descuento));
 			dv.setCantidad(Integer.parseInt(cantidad));
+			dv.setPrecioUnitario(p.getPrecio());
 			// se agrega detalleVenta a carrito
 			agregarItemCarrito(dv);
 			cerrarFormulario();
