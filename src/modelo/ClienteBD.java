@@ -27,8 +27,8 @@ public class ClienteBD {
 			cst = c.prepareCall(consulta);
 			
 			//PARAMETROS DE SALIDA
-			cst.registerOutParameter(1, Types.VARCHAR);
-			cst.registerOutParameter(2, Types.INTEGER);
+			cst.registerOutParameter(1, Types.VARCHAR); //nombre
+			cst.registerOutParameter(2, Types.INTEGER); //codigo
 
 			//PARAMETROS DE ENTRADA
 			cst.setString(1, cliente.getNombre());

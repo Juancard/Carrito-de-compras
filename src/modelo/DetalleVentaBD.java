@@ -17,15 +17,15 @@ public class DetalleVentaBD {
 		
 		try {			
 			// SE PREPARA LA CONSULTA
-			String consulta = "{ call insertar_detalleventa( ?, ?, ?, ?,? ) }";
+			String consulta = "{ call insertar_detalleventa( ?, ?, ?, ?, ? ) }";
 			cst = c.prepareCall(consulta);
 			
 			// PARAMETROS DE SALIDA
-			cst.registerOutParameter(1, Types.INTEGER);
-			cst.registerOutParameter(2, Types.INTEGER);
-			cst.registerOutParameter(3, Types.INTEGER);
-			cst.registerOutParameter(4, Types.NUMERIC);	
-			cst.registerOutParameter(5, Types.NUMERIC);	
+			cst.registerOutParameter(1, Types.INTEGER); // codigo de venta
+			cst.registerOutParameter(2, Types.INTEGER); // codigo de producto
+			cst.registerOutParameter(3, Types.INTEGER); // cantidad
+			cst.registerOutParameter(4, Types.NUMERIC);	// descuento
+			cst.registerOutParameter(5, Types.NUMERIC);	// precio unitario
 
 
 			// PARAMETROS DE ENTRADA

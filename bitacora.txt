@@ -1,0 +1,966 @@
+
+PROYECTO: CARRITO DE COMPRAS
+
+- 29/08/2015:
+	Comienzo del proyecto. 
+	Pruebas en Eclipse desde máquina virtual Debian 7. 
+		Errores en tema de permisos de carpeta Workspace. 
+			Solución: 
+			#chmod -R ugo+rw /home/juan/workspace
+			Y reinicio del eclipse.
+		Problema con ventanas de la interface de Eclipse: no se visualizan opciones de menu situadas en sector inferior de ventana.
+			Sin solución.
+		Creacion de Clases con o sin main.
+		Pruebas con JUnit Test Case
+	Instalación PostgreSQL en maquina virtual Debian 7
+		Problemas para iniciar el servicio
+			Sin solución (solucionado en fecha 02/09/2015)
+	Instalación PostgreSQL en Windows 8.1
+
+		
+- 30/08/2015:
+	Pruebas de pgAdmin3 en Windows 8.1
+	
+
+- 01/09/2015:
+	Comienza desarrollo de base de datos postgreSQL en Windows 8.1
+	Se crea la base de datos CarritoDB
+	Se agregan tablas de producto, cliente, venta y detalleVenta.
+	Se investiga sobre stored procedures en PostgreSQL.
+
+
+- 02/09/2015:
+	Solucionado problema de inicio de servidor PostgreSQL en maquina virtual Debian.
+	Problemas en instalación de pgAdmin3 en maquina virtual Debian.
+		Sin Solución.
+	
+	
+- 03/09/2015:
+	Creado procedimiento insertar_producto(), actualizar_producto() y obtener_producto().
+	Creado procedimiento de prueba llamado obtener_producto2() como ejemplo de uso de loops para futuras implementaciones.
+
+
+- 04/09/2015:
+	Creado procedimiento insertar_cliente() e insertar_detalleventa()
+	Cambio tipo de datos de codigos univocos de integer a serial (cada uno con su respectiva sequence).
+	Procedimientos de insert actualizados para autoincrementar codigo unívoco en caso de no ser ingresado por usuario.
+	Creada vista historico_ventas para obtener todas las ventas realizadas 
+	historico_ventas utiliza las siguientes vistas: 
+		Subtotal_por_producto: 
+			Cada venta con cada uno de los productos solicitados por el cliente.
+			Subtotal calculado a partir de la multiplicacion del precio del producto por la cantidad solicitada.
+		Total_por_venta: 
+			Cada venta y el total calculado a partir de los subtotales obtenidos por vista subtotal_por_producto.
+	Creada vista historico_ventas2 con misma funcionalidad que historico_ventas pero sin utilizar otras vistas.
+	Creado procedimiento obtener_venta mediante lógica de loops extraida de obtener_producto2.
+	Eliminado procedimiento obtener_producto2.
+
+	Comienzo de desarrollo de la aplicación JAVA en Eclipse.
+	Se crea proyecto CarritoCompras.
+	Desarrollada clase Producto incluyendo testeos JUnit desde clase Test.
+	Desarrollada clase Cliente incluyendo testeos JUnit desde clase Test.
+	Desarrollada clase Venta incluyendo testeos JUnit desde clase Test.
+	
+	
+- 05/09/2015:
+	Aprendizaje sobre como generar conexiones entre base de datos y aplicación JAVA (uso de Class.forName(), Connection(), etc).
+	Pruebas en Eclipse utilizando como base documentación proporcionada por Prof. Blanque mediante la plataforma virtual de Prog. III.
+		Carpeta: ..\Programación III\JAVA Listado de Clientes.
+	Se agrega al proyecto de Eclipse la libreria postgresql-9.4-1202.jdbc4.jar
+	Pruebas de conexión sobre algunas tablas y views. 
+		Pendiente: conectarse a procedimientos.
+	Desarrollada clase DetalleVenta incluyendo testeos JUnit desde clase Test.
+	Creada clase Conexion.
+		Problemática: ¿Qué devuelven métodos? Si no se puede generar conexión ¿qué pasa?.
+	Agregado a cada método de conexión un Throw Exception.
+		Pendiente: Investigar sobre el tema.
+	Aprendiendo sobre consultas, inserciones y demás hacia la BD a traves de procedimientos.
+	Se edita la funcion insertar_producto a la cual se le ingresa descripcion y precio de producto y devuelve el código auto-generado.
+		De esta manera se simplifica la implementación de la conexión desde la aplicación sin perder su funcionalidad.
+	Desarrollo de clase ProductoBD que interactua con la tabla producto de la BD.
+		Generando método insertar_producto.
+			Errores de ejecición con origen aun indeterminable. Debugging sin éxito.
+				Sugerencia: ¿Agregar try-catch para detectar origen de dicho error?
+				Dificultad: necesidad de aprender sobre el uso de dichas sentencias previo a su implementación.
+		
+	Pendiente: 
+		1) Arreglar problema en clase ProductoBD. 
+			Sugerencia: llamar un procedimiento de prueba lo más simple posible e ir aumentando complejidad de a poco
+			Objetivo de dicho proceder: Entender el funcionamiento de las disintas clases y métodos que entran en juego.
+			Dichas Clases y métodos son: CallableStatement, PrepareStatement, prepareCall, prepareStatement, execute, executeQuery, executeUpdate, etc.
+		2) Pulir procedimientos derivados de insertar_producto. Insertar_producto3 es de prueba, eliminar luego de solucionado 1).
+	
+	
+- 06/09/2015:
+	Desarrollo de clase ClienteBD
+		Duda: ¿try-catch o throw Exception?. Por el momento se elige segunda opción. Revisar a futuro.
+		Codeando metodo insertar_cliente.
+			Mismos problemas que en ProductoBD.
+			Bug encontrado: mal definido parametro de salida, cambiado a: callableStatement.registerOutParameter();
+				Mismos problemas
+			Bug encontrado: se llamaba a funcion insertar_cliente en lugar de insertar_cliente2 (funcion temporal de prueba).
+			Solucionado parcialmente. execute() devuelve falso pese a que la tabla cliente es cargada correctamente.
+				Solucionado: el false de execute() no tiene que ver con el éxito de la transacción.
+	Se vuelve a ProductoBD y se solucionan algunos bugs.
+		Mismos problemas.
+		Bug detectado: parece que hay problemas con el parametro de tipo double de la funcion.
+		Solucionado: Se castea de double a bigDecimal.
+	Problemática: Cuando hay un error de ejecución como los tratados arriba, el programa lanza una excepción pero la conexión no se cierra.
+		Consecuencia: Atributo código de tipo serial (ejemplo, codigo_cliente) no se autogenera correctamente (genera un corrimiento).
+		
+	Para la próxima: 
+		Antes de proseguir con el desarrollo de  nuevos métodos y clases y generar aun más errores, trabajar sobre lo ya codeado 
+			Objetivo: Generar un código más seguro con control de erorres.
+			Para esto: Documentarse sobre Try-catch e implementarlo en el sistema previo testeos de prueba.
+		Averiguar como implementar correctamente testeos de JUnit en clases que se comunican con BDs.
+
+
+- 07/09/2015:
+	Se investiga sobre try-catch y sus posibles implementaciones.
+		Bibliografia: Thinking in JAVA, google, etc.
+	Probando ejemplos de Thinking in JAVA.
+	
+	Para mañana: 
+		Seguir con las pruebas de Try-Catch.
+		Buscar manera óptima de implementar testeos de JUnit a conexiones con BD
+		Preparar el terreno para implementar ambas en las clases ya creadas.
+		Realizar back-up de todo.
+
+	
+- 08/09/2015:
+	Se genera clase ConexionConTry en base a Conexion.
+		Comentarios en cada apartado.
+		Implementación de Try-catch
+	Pruebas de ConexionConTry en Clase de testeos simples TestVenta.
+	Se cambia metodos de ConexionConTry a static para simplificar control de excepciones.
+	Se agrega método deshacerCommit a ConexionConTry para no confirmar consulta a BD cuando hay errores.
+	Probando ConexionConTry en ClienteBD 
+	Nuevo ClienteBD con implementación de control de errores y de clase ConexionConTry.
+	Nuevo ProductoBD con implementación de control de errores y de clase ConexionConTry.
+	Se elimina clase Conexion para reemplazarla definitivamente por ConexionConTry ahora renombrada como Conexion.
+	Investigando sobre como realizar testeos JUnit óptimos con conexiones a BD.
+		Se recomienda utilizar otras herramientas como DBUnit, SQLUnit o realizar mocks.
+		Se deja problemática en suspenso por el momento.
+	Se desarrolla el método actualizarProducto en clase ProductoBD.
+	Problema general: executeUpdate siempre devuelve 0. 
+		¿Bug del driver?
+		
+	Pendiente: 
+		Terminar métodos de productoBD.
+		Investigar sobre métodos de clase y sus implicancias.
+		Back-Up.
+	
+
+- 09/09/2015:
+	Creado método getProductos en ProductoBD para guardar todos los productos en un arreglo.
+	Desarrollando método obtenerProducto de clase ProductoBD.
+		Problema: procedure obtener_producto devuelve SETOF producto, ¿Cómo realizar el call desde el método JAVA?
+		Dudas: ¿Es necesario que devuelva un SETOF producto siendo que solo devolveria una fila? 
+			¿Cambio a SETOF record? Investigando sobre el tema.
+		Solucionado: Se utiliza PreparedStatement.
+	
+	Pendiente: 
+		Proseguir con DetalleVentaBD o VentaBD
+		Investigar sobre métodos de clase y sus implicancias.
+		Back-Up.
+	
+		
+- 10/09/2015:
+	Desarrolladas clases VentaBD y DetalleVentaBD junto con sus respetivos métodos de inserción.
+	¿Cómo hacer para que cuando inserto una venta realize tambien un llamado a insertarDetalleVenta?
+		Investigar sobre el tema.
+		Idea: Cuando inserto una venta tener los datos pertenecientes al detalle de cada producto solicitado
+			y llamar a insertarDetalleVenta desde allí.
+			Duda: 
+				¿Cómo le doy los datos a llenar en detalleVenta? 
+				¿Qué hacer con conexión?. Investigar y realizar pruebas.
+			
+		Solucionado: 
+			Paso a insertar_ventas un arreglo de detalleVentas como parámetro y a su vez dentro de este método
+			llamo a insertarDetalleVenta dandole como parámetro la conexión establecida.
+		Pendiente: Averiguar si esta alternativa es la mejor o si es posible optimizarlo.
+	Se desarrolla método para cargar todas las ventas realizadas junto con el detalle de cada una.
+		Para tal fin se crea una nueva vista en la BD llamada obtener_detalle_ventas.
+	
+	
+- 11/09/2015:
+	Terminado desarrollo de modelo de datos del proyecto.
+	Se aborda el tema de interfaz gráfica.
+	Investigando qué software se utiliza para dicho desarrollo.
+		Leyendo Thinking in JAVA - Bruce Eckel, 2da edición. Capitulo 13, Creating Windows & Applets.
+		Pruebas básicas otorgadas por dicha edición.
+			Problema con ejemplo 1: 
+				Restricción de acceso a libreria.
+				Solución: Quitar y luego volver a agregar JRE System Library.
+		
+
+- 17/09/2015:
+	Instalación de WindowBuilder.
+	Pruebas simples utilizando WindowBuilder.
+	Probando botones de "Ver Productos", "Ver Clientes" y "Ver Ventas" con sus respectivas acciones.
+		Sálida en JTextArea.
+		Se agrega método getClientes a ClienteBD con su respectivo testeo.
+		Se agrega método getVentas a VentaBD con su respectivo testeo.
+	Aprendiendo a usar JTable.
+	
+
+- 18/09/2015:
+	Creado Boton de Insertar Producto que llama a ventana para ingresar datos.
+	Creada VentanaInsertarProducto.
+		Agregados botones Aceptar y Cancelar con sus respectivos actionListener.
+		Agregada validación de datos ingresados.
+	Creado Boton de Insertar Cliente que llama a ventana para ingresar datos.
+	Creada VentanaInsertarCliente.
+		Agregados botones Aceptar y Cancelar con sus respectivos actionListener.
+		Agregada validación de datos ingresados.
+	Trabajando en JTable TablaProductos.
+		Se crea una nueva clase llamada TablaProducto que hereda de DefaultTableModel.
+		Se sobreescriben métodos de getValueAt, getColumnCount y otros para que actuen sobre 
+			mi arreglo de productos extraidos de la BD.
+		Problema:
+			Se inserta producto pero no se actualiza tabla.
+			Solución:
+				Agrego a clase InterfazPrincipal método actualizarTabla la cual es llamada por 
+					VentanaInsertarProducto.
+		Problema:
+			Al pasar a VentanaInsertarProducto la instancia de InterfazPrincipal como parámetro
+				WindowBuilder lanza error y no permite ver ventana de diseño.
+			Solución:
+				Luego de correr, el error dejó de mostrarse. Solución indefinida.
+		Lo mismo realizado con VentanaInsertarProducto se realiza con VentanaInsertarCliente.
+	Trabajando en JTable TablaClientes.
+		Se crea una nueva clase llamada TablaCliente que hereda de DefaultTableModel.
+		Se sobreescriben métodos de getValueAt, getColumnCount y otros para que actuen sobre 
+			mi arreglo de clientes extraidos de la BD.
+	Se agrega boton Actualizar Producto
+		Se agrega VentanaActualizarProducto.
+		Agregada funcionalidad para tomar de la tabla el item que seleccionó el usuario.
+		Agregada funcionalidad de rellenar campos de texto con la información
+			del producto seleccionado.
+		Problema:
+			Luego de actualizar producto, no se actualiza tabla.
+			Solución:
+				Faltaba campo codigo de producto necesario en la llamada a la BD.
+	Elimino botones "ver producto", "ver cliente" y "ver ventas" creados ayer
+			junto con JTextArea.
+		Razon: Solo se realizo como práctica y su funcionalidad fue reemplazada por 
+			el uso de tablas.
+	Realizado Backup tanto de Proyecto Eclipse como de BD PostgreSQL
+
+	
+- 19/09/2015:
+	Creado boton Agregar al carrito
+		Se codea ventanaAgregarCarrito.
+		Se agrega funcionalidad de validación de datos ingresados por usuario.
+	Creo clase CarritoCompras que contiene arreglo de detalleVenta.
+		Agrego métodos:
+			addDetalleVenta: agrega detalleVenta al carrito.
+			getCarrito: devuelve arreglo de carrito.
+			borrarCarrito: Limpia el carrito.
+			productoEnCarrito: true si codigoProducto ingresado se halla en carrito.
+			agregarCantidad: suma nueva cantidad al existente.
+			getDetalleVenta: Se ingresa codigoProducto y devuelve DetalleVenta;
+			agregarDescuento: suma el nuevo descuento al existente.
+		Testeos JUnit en clase TestCarritoCompras.
+		Optimizo código utilizando el método indexOf del arrayList.
+			Cuidado: el equals da true pese a no asignar codigoVenta.
+			
+	Pendiente: 
+		¿IndexOf funciona pese a no asignar codigoVenta? Investigar.
+		Metodo borrarItem.
+		Codear TablaCarrito
+		Default para cantidad y descuento en ventanaAgregarCarrito.
+		Probar paneles con distintos Layouts.
+		
+	
+- 20/09/2015:
+	Duda solucionada: "¿IndexOf funciona pese a no asignar codigoVenta? Investigar."
+		Atributos del objeto son asignados valores por defecto.
+	Agregado método borrarItem y su respectivo testeo.
+	Realizada clase JTable TablaCarrito que utiliza CarritoCompras.
+	Agregado método getSubtotal a DetealleVenta y a CarritoCompras.
+	
+	Pendiente: 
+		Default: segunda vez no aparece.
+		Que no aparezca mismo producto dos veces.
+		¿Quién calcula descuento (descuento * cantidad)?
+		¿Por qué fireTableDataChanged actualiza sin volver a llamar a carrito.getCarrito?
+
+
+- 21/09/2015:
+	Agregada funcionalidad para que dos productos iguales aparezcan una sola vez en carrito.
+	Código de dicha funcionalidad optimizado.
+		Antes lógica se encontraba en clase InterfazPrincipal, ahora se situa en CarritoCompras.
+		Cambios de método addDetalleVenta genera errores en testeo JUnit.
+			Reparación pendiente.
+	Agregados botones de carrito
+		Borrar Item: Quita item seleccionado del carrito.
+		Limpiar Carrito: Borra todos los productos del carrito.
+		Finalizar Compra: Confirma el pedido.
+	Codigo de InterfazPrincipal comentado y optimizado.
+		Se soluciona siguiente problema:
+			En actionListener no podia enviar InterfazPrincipal con this por lo que
+				instanciaba clase ventana desde fuera.
+			Solución:
+				InterfazPrincipal.this	
+	
+	Pendiente: 
+		- Al confirmar compra otorgar al usuario el número de venta.
+		- Total a pagar.
+		- Informe de Ventas.
+
+
+- 22/09/2015:
+	- Optimizadas clases de paquete interfaz con metodos privados para facilitar lectura de codigo.
+		A futuro: implementar herencia en clases tabla y ventana.
+	- Reparado TestCarrito.
+	- Optimizo testeos JUnit
+		En lugar de una sola clase para todos los tests creo clases particulares para cada clase
+			del modelo en paquete test.
+	- Agregado Total del carrito (método, labels, campos, etc.)
+	- BackUp realizado.
+	- Actualizo Eclipse a Mars 4.3
+	- Instalado el ObjectAid para genera UML
+	
+	Pendiente: 
+		- DetalleVenta, ¿tiene atributo Venta?
+		- Clase Conexion no es utilizada segun UML, revisar llamadas a dicha clase.
+	
+
+- 23/09/2015:
+	- Optimizado código de clase Conexion.
+	- Generado UML.
+		Dudas generadas:
+			- ¿Por qué diagrama no muestra relación entre VentaBD y DetalleVentaBD?
+				¿Tendrá que ver con que DetalleVenta usa la misma conexión que VentaBD?
+				Solucion:
+					Aparece como dependencia.
+			- CarritoCompras se relaciona con Producto en lugar de con DetalleVenta.
+				¿No sería mas eficiente si trabajara con DetalleVenta?
+				Solucionado:
+					Implementada dicha propuesta y actualizado testeo JUnit.
+			- Venta debiera tener objeto Cliente.
+				Hecho.
+			- DetalleVentaBD parece no tener uso en diagrama. 
+				¿Lo tendría en caso de implementar Historico de Ventas?
+			- Uno a uno entre interfaz y ventanas, ¿Sera recomendado?
+	- Generado segundo UML con las nuevas implementaciones.
+
+
+- 27/09/2015:
+	- Investigando sobre back-ups
+	- Investigando sobre Git
+		Bibliografia: "Pro Git".
+	- Se realizan pruebas simples.
+
+- 28/09/2015:
+	- Se realiza repositorio Git en carpeta: ..\Eclipse Workspace\CarritoCompras
+	- Utilizo .gitignore extraido de la web para ignorar archivos autogenerados.
+	- Commit realizado.
+	- Algunos comandos:
+		git init
+		git log -1 -p -> ver cambios introducidos en el ultimo commit
+		git commit -a -m 'mensaje en commit' -> realiza commit (-a: stage de archivos modificados)
+
+	
+- 30/09/2015:
+	- Se realizan pruebas de uso de Branch en git.
+		Algunos comandos utilizados.
+			- git branch branch_prueba 
+				crea branch llamado branch_prueba
+			- git checkout branch_prueba
+				cambia a branch branch_prueba
+			- git checkout -b branchprueba
+				integra los dos comandos anteriores en uno solo.
+			- git branch
+				muestra branches existentes en proyecto
+			- git log --decorate
+				muestra commits solo de branch actual (al que apunta HEAD)
+			- git log --oneline --decorate --graph --all
+				mismo que arriba pero de todos los branch.
+			- git merge branch_prueba
+				branch en que estoy posicionado apunta a branch_prueba
+			- git branch -d branch_prueba
+				eliminar branch_prueba
+		
+				
+- 01/10/2015:
+	- Se realizan pruebas de uso de servidor
+		- git clone <directorio_local>
+			Para guardar una copia desde un directorio del filesystem propio.
+		- git remote  -v
+			Si se realizó un clone especifica que URLs utilizan el fetch y push
+		- git fetch <origin>
+			Para traer data de proyectos remotos
+		- git push <origin> <branch>
+			Enviar a servidor la data actualizada.
+	- Subido proyecto a https://github.com/Juancard/Carrito-de-compras
+		
+	- Se realizan pruebas del proyecto en PC de escritorio con Windows 7.
+		- git clone https://github.com/Juancard/Carrito-de-compras
+		- En PostgreSQL:
+			- Creo nueva base de datos llamada "carrito"
+			- Restauro backup en dicha base de datos con restore
+			Pendiente: Conectarme a base de datos de manera remota
+		- En Eclipse:
+			- Creo un nuevo proyecto java.
+			- Click derecho en src -> import -> fileSystem y selecciono carpeta src
+				localizada en donde se realizó el git clone.
+			- Se agrega libreria JUnit
+				Add library -> JUnit
+			- Se agrega JDBC Driver para postgreSQL
+				- Bajar JDBC de página oficial
+				- en Eclipse click en add external JAR y luego seleccionar el driver descargado.
+			
+	- Trabajando sobre conexión a base de datos de forma remota donde
+			Direccion de red privada: 192.168.1.0/24
+			Servidor: Mi notebook personal. Ip privada: 192.168.1.105.
+			Cliente: PC de escritorio como cliente. Ip privada: 192.168.1.101
+		Para esto:
+		- En Servidor:
+			- Editar archivo pg_hba.conf y agregar direcciones de red aceptadas.
+				En este caso: 
+					192.168.1.0/24
+			- Editar archivo postgreSQL.conf y setear 
+				listen_addresses = '*' (sin comillas).
+			- Generar nueva regla en firewall para aceptar conexiones en puerto 5432.
+		- En Cliente:
+			Editar clase Conexion para conectarse a base de datos remota:
+					DB_URL = jdbc:postgresql://192.168.1.105:5432/carrito
+			
+			
+- 06/10/2015:
+	- Confección del anteproyecto.
+		- Se describe brevemente el proyecto mediante una introducción.
+		- Se establecen los objetivos generales y especificos del proyecto.
+		- Se listan los recursos utilizados.
+		- Se confecciona el cronograma de actividades del proyecto.
+		- Se especifica la bibliografía de referencia.
+	- Anteproyecto entregado al docente.
+
+	
+- 09/10/2015:
+	- Objetivos del proyecto
+		Duda:
+			¿Objetivos del proyecto, del estudiante o de ambas?
+	- Confección de la documentación del proyecto
+		- Realizada la introducción y descripción del proyecto.
+			Duda:
+				¿Plan de trabajo?
+		- Especificada la arquitectura e infraestructura del proyecto.
+	- Trabajando sobre la definición detallada del proyecto.
+		Duda:
+			¿Temas principales?
+	- Requerimientos.
+		Duda: ¿Cómo se pide especificarlos?
+	- ¿Pre y post condiciones?
+	Pendiente:
+		Consultar sobre dudas generadas a Blanqué.
+	
+
+- 10/10/2015:
+	- Dudas del día anterior resueltas en clase.
+	- Corregidos los apartados de "Onjetivos", "Requerimientos" y "Temas principales".
+	- Determinadas las limitaciones del sistema.
+
+
+- 11/10/2015:
+	- Esbozo de diagrama de Casos de Uso
+	
+	
+- 17/10/2015
+	- Dudas consultadas a Javier Blanqué
+	- Se resuelven cuestiones sobre los diagramas a presentar en el proyecto.
+	- Se pulen los diagramas de clases y de casos de uso.
+	
+	
+- 20/10/2015:
+	- Completado apartado "Duración" de la documentación.
+	- Completado apartado de "Resultados esperados" de la documentación.
+
+	
+- 22/10/2015:
+
+	- Se realizan mejoras sobre el formato de la Bitácora y se agrega a la documentación del proyecto.
+	- Finalizada primera versión del proyecto.
+
+
+	
+- 18/11/2015:
+
+	- Se revisa bibliografia de asignatura Base de datos II
+	
+	- A futuro:
+		- Implementar ideas extraidas de documento:
+			"Introduccion al uso de JPA 2 genérico" por Guillermo Cherencio
+	
+	
+- 19/11/2015:
+
+	- Se lleva a cabo el desarrollo de clase genérica TablaModel<T> 
+		- Desarrollo basado en documento "Introduccion al uso de JPA 2 genérico".
+		- Con esto se busca reutilizar código mediante el uso de reflection
+		- TablaModel<T> reemplazará las clases TablaProductos, TablaClientes y TablaCarrito
+	- Para resguardar anterior código:
+		- Creo una nueva Branch en el repositorio Git llamada "prueba_tabla_model"
+	- Se cambia parametros de entrada de la clase tablaProductos
+		- Antes recibia productoBD, ahora recibe lista de productos: productoBD.getProductos()
+	- Mismo con clase TablaClientes y TablaCarrito.
+	- Se implementa TablaModel<Producto>.
+		- Problema:
+			- Class.forName("Producto") arroja excepcion.
+		- Solucion:
+			- Class.forName("carrito.Producto")
+			- Es decir, se agrega al nombre el paquete en el que se encuentra la clase.
+	- Mismo para TablaModel<Cliente>
+	- Implementando TablaModel<DetalleVenta> para el carrito
+		- Problemas:
+			- Algunos atributos calculados como Subtotal o descuento entre otros no 
+				aparecen en tabla ya que no son atributos de clase.
+			- Ademas aparecen atributos como Producto y Venta que no se deseaban
+				agregar a la tabla
+		- Solución
+			- Por ahora se vuelve a implementación anterior.
+			- Revisar a futuro.
+	- Transformo clase Conexion en ConexionUtility y cambio metodos a static.
+	- Diagramdo UML con actualizaciones.
+	
+	- Pendiente: 
+		- Revisar Documentación.
+		
+
+- 24/11/2015
+     - Se crea clase “JTableCofig” en paquete “anotaciones”.
+     - Se agrega llamada a dicha anotación en clases Cliente y Producto.
+     - Se realiza Reflection en clase TablaModel para obtener anotaciones.
+
+
+- 29/11/2015:
+	- Problemática: 
+		- Vista no es independiente del modelo.
+		- Demasiado código en Vista.
+		- Necesidad de implementar un nexo entre modelo y vista.
+	- Investigando sobre modelo vista controlador (MVC).
+
+
+- 30/11/2015:
+	- Registro la version v1.0.0 del software en github.
+	- Creo una nueva branch "controlador"
+	- Nueva clase "IniciarCarrito" con un main que crea un objeto de la vista que se quiera
+		implementar (en este caso "InterfazPrincipal")
+		- Antes el main se hallaba en la vista.
+		- Esto facilita el crear nuevas vistas.
+	- Creo una interfazVista con los métodos fundamentales que cualquier vista que se vaya 
+		a desarrollar tenga que implementar.
+	- Implementado controlador para insertar producto.
+		- Problemas: 
+			- antes data era validad por vista ahora ¿Quién valida la data? 
+			- ¿Controlador que evento escucha? 
+				Si escucha en boton "aceptar" como obtiene los datos del producto?
+	- Creo otro proyecto aparte donde realizo pruebas con diferentes implementaciones.
+	- Investigando sobre distintas implementacions de MVC en Java Swing.
+	
+
+- 02/12/2015:
+	- Trabajando sobre Insertar Producto.
+	- Cuestiones solucionadas:
+			¿Quién valida? para facilitar implementación, el controlador.
+			¿Controlador qué evento escucha? todos los eventos tanto de la vista 
+				principal como los de las ventanas que el mismo solicita abrir.
+	- Problemas encontrados:
+		- Tablas: 
+			- ¿las table model son parte de la vista o del modelo?
+				- Para facilitar implementación dejo como estaba, es decir,
+					los modelos de la tabla son parte de la vista.
+			- ¿Cómo actualizar esas tablas?
+				- Para facilitar implementación dejo como estaba, es decir,
+					cada table model tiene un metodo actualizar tabla que recibe
+					del controlador el arreglo de objetos que tiene que mostrar.
+				- Inconvenientes: 
+					- Debo importar clases Producto, Cliente y Carrito a la vista 
+						para que realice reflection.
+					- ¿Sera eso permitido en el patrón MVC?
+		- ¿Demasiados métodos en Interface InterfaceVista?
+	- Trabajando sobre Actualizar Producto
+	- En desarrollo:
+		- Utilizar una sola ventana que reemplace "VentanaInsertarProducto" y 
+			"VentanaActualizarProducto".
+		- La nueva VentanaProducto tendrá atributos con privacidad protected que
+			seran seteados por la vista principal si fuera necesario.
+			
+		- Desarrollo finalizado
+	
+	Para la proxima: 
+		- Pensar en la posibilidad de utilizar mas de un controlador.
+		- Queda por codear la implementacion de controlador para las acciones:
+			- Insertar Cliente
+			- Agregar Carrito
+			- Quitar Item Carrito
+			- Limpiar Carrito
+			- Confirmar Compra
+
+			
+- 03/12/2015:
+	- Desarrollo de VentanaInsertarCliente.
+	- Se cambia nombre a VentanaCliente permitiendo utilizar la misma ventana
+		para proporcionar diferentes funcionalidades trabajando sobre los
+		datos del cliente.
+	- Desarrollo de funcionalidad Agregar al carrito.
+	- VentanaAgregarCarrito renombrada a VentanaCarrito
+	- ¿Ventanas podrian heredar de algo asi como ventanaFormulario?
+		- Tal vez reduciria codigo de abrirFormulario.
+		- Revisar a futuro.
+	- Trabajando sobre Modelos de tablas
+		- Dudas:
+			- ¿El controlador mantiene un arreglo con los clientes, productos y 
+				los items del carrito o los va a buscar a la BD cada vez 
+				que lo requiere?
+			- En cada caso ¿Cómo actualizaria las tablas de la vista?
+		- Decision:
+			- Se decide buscar en la BD los productos y clientes cada vez que 
+				se requieran.
+			- Las tablas se actualizan dando el nuevo arreglo de manera completa.
+	- Finalizada implementación de Controlador.
+	- UML actualizado.
+	- Se hace un merge de la branch master hacia la branch "controlador"
+		en la cual se realizó el desarrollo.
+	- Se publica versión v1.1.0 del software.
+	
+	A futuro:
+		- Ventanas de formularios que hereden de VentanaFormulario
+		- Dividir Controlador en ControladorCliente, ControladorCarrito y 
+			ControladorProducto
+		- Revisar implementacion Table Model (¿vista o modelo?, etc)
+		- ¿Demasiados métodos en InterfazVista?
+		- Controlador y modelo ¿Son dependientes?
+		- Implementar vista utilizando BorderLayOut
+		- Estudiar nuevo UML
+		- Actualizar documentación con el MVC implementado.
+
+
+- 04/12/2015:
+	- Objetivo:
+		- Dividir la clase Controlador en 
+			- ControladorProducto
+			- ControladorCliente
+			- ControladorCarrito
+	- Se genera una nueva branch "controladores"
+	- Desarrollo de ControladorProducto.
+	- Se rompieron las annotations. Revisar!
+		- Arreglado. 
+		- Mal asignado en la clase reflection de TablaModel 
+			el paquete donde se ubican.
+	- Desarrollo de ControladorCliente.
+	- Desarrollo de ControladorCarrito.
+	- UML actualizado.
+	- Cambio priacidad de atributos de VentanaProducto de protected a 
+        privados y armo getters y setters de botones y campos de texto.
+	- Objetivo cumplido.
+	- Se hace un merge de lo desarrollado en el repositorio git.
+	- Nuevo Objetivo:
+		- Que las clases VentanaProducto, VentanaCliente y VentanaCarrito
+			sean administradas por el controlador y no por la vista.
+	- Armo nueva branch "ventana"
+	- Trabajo sobre VentanaCliente.
+	- Trabajo sobre VentanaProducto.
+	- Trabajo sobre VentanaCarrito.
+	- Objetivo Cumplido.
+		- InterfazVista ya no tiene tanta cantidad de métodos ya que la administracion
+			de los formularios queda a mano de los controladores.
+	- Se hace un merge de lo desarrollado en el repositorio git.
+	- Nuevo Objetivo:
+		- Que las tableModel sean manejadas por los controladores.
+	- Desarrollo de TablaCarrito.
+	- Desarrollo de TablaModel<Cliente>.
+	- Desarrollo de TablaModel<Producto>.
+	- Objetivo cumplido.
+	- Trabajando sobre Ventanas utilizando BorderLayout
+	
+
+- 05/12/2015
+	- Aplico nuevo diseño de ventanas con BorderLayout en:
+		- VentanaCliente.
+		- VentanaCarrito.
+		- VentanaProducto.
+	- UML actualizado
+	- Desarrollando nueva vista "OtraVista" utilizando BorderLayout.
+		- Problema:
+			- Al agrandar la pantalla panel sur come el panel centro.
+				¿No debiera ser al reves?
+			- Hallado verdadero causante:
+				En Swing cuando se setea un JPanelScroll en el CENTER
+				del BorderLayout este panel nunca se redimensiona.
+				
+	Para mañana:
+		- Seguir trabajando sobre dicho error.
+		- Agregar BorderTitled a paneles carrito, cliente y producto.
+		- Agregar funcion setActionCommand(String) en InterfazVista
+		- Probar vista en PCs con diferentes tamaños de pantalla
+		- Arreglar formularios (descripcion aparece por debajo de precio)
+		- Probar FlowLayout en botones de la vista.
+		
+		
+- 06/12/2015:
+	- Error solucionado (parcialmente)
+		- Defini un setPreferredSize en la tabla que causaba el error.
+		- Puede que esta solucion represente una limitación.
+		- Probar en pantallas de PCs de otros tamaños.
+	- Se prueba FlowLayout en algunos botones, sin éxito.
+	- Agrego bordes con títulos a paneles.
+	- Nueva vista testeada en pantalla 1080p, sin problemas.
+	- Se agrega función setBotonActionCommand() en InterfazVista
+	- Se arregla bug de formularios.
+	- Terminada nueva vista ahora llamada "VistaConLayout"
+	- La anterior vista se revautiza "VistaSinLayout".
+	- VentanaCarrito le agrego código y descripción del producto seleccionado.
+	
+	A futuro:
+		- Implementar funcion que permita conocer el historico de ventas.
+		- Investigar sobre reportes.
+		- Investigar sobre Triggers.
+		
+
+- 07/12/2015:
+	- Investigando sobre generación de reportes en Java
+	- Instalando el iReports.
+	- Genero un nuevo proyecto y selecciono como diseño un template 
+		predefinido.
+	- Cargo Datasource y la query historico_ventas_2
+	- Comienzo el diseño del reporte.
+	- Investigando como mostrar reporte en aplicación Java
+	- Trabajando en proyecto de pruebas "carrito_pruebas"
+	-Se prueba ejemplo de:
+		-http://community.jaspersoft.com/wiki/deploying-reports
+	- Problema:
+		-No encuentra el archivo en el path especificado.
+	- Solución:
+		- Busco path actual con System.getProperty("user.dir")
+			y le agrego /src/reporte/historicoVentas.jasper
+		- Atención: Funciona pero hay Warn.
+	- Se prueba mismo ejemplo pero esta vez dandole mi DataSource.
+	- Muestro pdf en ventana Swing.
+	- Jars necesarios de JasperReports:
+		- commons-beanutils-x.x.x.jar
+		- commons-collections-x.x.x.jar
+		- commons-digester-x.x.jar
+		- commons-logging-x.x.jar
+		- groovy-all-x.x.x.jar(if the report language is deafult Groovy)
+		- iText-x.x.x.jar(For PDF Exports)
+		- jasperreports-x.x.x.jar
+		- poi-x.x.jar(for excel exports)
+		- jfreechart-x.x.x.jar
+	- Comienzo a trabajar directamente sobre el proyecto.
+	- Implementado.
+	- Prueba en otras PC.
+		- Error:
+			- Al solicitar reporte la aplicación se cierra.
+		- Causante:
+			- Jasper Reports genera path absolutos, no variables.
+		- Solución:
+			- Ademas del JAR ejecutable sera necesario pasar la carpeta
+			  con los archivos necesarios del 
+                   JasperReport(.jrxml,.jasper,.img).
+		- Dicha carpeta es: "C://Jasper_Reports/"
+	- UML actualizado.
+	
+	A futuro:
+		- Publicar la v2.0.0
+		- Actualizar la documentación.
+		- Probar con Branchs de git una implementación de 
+             "ControladorPrincipal" que abstraiga a la vista de los distintos       
+              controladores.
+		- DetalleVenta tiene atributo venta. Revisar.
+		- Investigar sobre Triggers.
+		
+		
+- 08/12/2015:
+	- Se lleva a cabo la actualización de la documentación del proyecto.
+	- Se actualiza sección que describe el proyecto.
+	- Especificada las nuevas tecnologías utilizadas (JasperReports, etc.)
+	- Detallados los nuevos objetivos.
+	- Confeccionando nuevo diagrama de casos de uso.
+	- Confeccionando UML adicional con herramienta Dia.
+	- Actualizada sección Duración detallando el flujo de trabajo 
+       llevado a cabo.
+	- Transcripción de bitacora a documentación.
+	
+	A futuro:
+		- pulir secciones Dudas, Opcional y Lecciones aprendidas.
+		
+		
+- 09/12/2015:
+	- Realizando curso online SQL en Stanford University:
+		Link:
+		https://lagunita.stanford.edu/courses/DB/2014/SelfPaced/about
+	- Schemas:
+		- ver path: 
+			- show search_path
+		- agregar schema "myschema" al path:
+			- SET search_path TO myschema,public;
+
+			
+- 12/12/2015:
+	- Se agrega a documentación sección Lecciones aprendidas.
+      - Finalizado curso de SQL.
+
+
+- 13/12/2015:
+     - Comienzo de curso “Constraints and Triggers”
+     - Problemática: 
+       - Si se cambia precio del producto, cambio el precio en todas las ventas 
+         realizadas.
+     - Solución: 
+       - Agregar atributo “precioUnitario” a cada producto.
+     - Objetivo: 
+       - Agregar atributo “precioUnitario” a cada producto.
+     - Se crea una nueva branch en git llamada “atributo_precio_venta”
+     - En BD se agrega dicho atributo en tabla detalle_venta con el nombre de 
+       “precio_unitario”.
+     - Para las ventas que ya existían en las tablas se les asigna el precio 
+       actual del producto con la siguiente query:
+       - UPDATE detalleventa d SET precio_unitario=p.precio FROM detalleventa 
+       dv,producto p WHERE d.codigo_producto=p.codigo_producto AND 
+       d.codigo_producto in (SELECT pp.codigo_producto FROM producto pp)
+     - A atributo de tabla se le agregan la constraint NOT NULL y se le asigna 
+       el mismo dominio que posee el atributo precio de tabla producto, esto 
+       es: numeric(10,2)
+     - Actualizadas vistas y procedures afectadas por el cambio y se eliminan 
+       otras que ya no son necesarias.
+     - Se agrega nuevo atributo precioUnitario a clase DetalleVenta junto con 
+       sus getters y setters.
+     - Actualizado método confirmarAgregarCarrito de ControladorCarrito.
+     - Actualizada query del JasperReport.
+     - Objetivo Cumplido.
+
+     A futuro: 
+     - Chequear utilidad de mantener Producto p en detalleVenta
+     - Cuando cambio el precio del producto no cambia el del carrito.
+     - Investigar sobre otros diagramas UML que no han sido agregados aun a la 
+       documentación como diagrama de secuencia.
+
+
+- 14/12/2015:
+     - Leyendo “Ingenieria de software” de Sommerville,capítulo 5 sobre 
+       diagramas UML.
+     - Trabajando sobre diagramas de secuencia de casos de uso especificados  
+       que son:
+       - Insertar Producto.
+       - Actualizar Producto.
+       - Agregar Cliente.
+       - Agregar Item.
+       - Quitar Item.
+       - Limpiar Carrito.
+       - Finalizar Compra.
+     - Diagramando caso de uso Insertar Producto.
+     - Diagramando caso de uso Actualizar Producto.
+     - Diagramando caso de uso Insertar Cliente.
+     - Diagramando caso de uso Agregar Item.
+     - Diagramando caso de uso Borrar Item.
+     - Diagramando caso de uso Limpiar Carrito.
+     - Diagramando caso de uso Finalizar Compra.
+     - Diagramando caso de uso Historico de Ventas.
+     - Diagramas agregados a la documentación.
+
+
+- 15/12/2015:
+     - Publicado Carrito de Compras v2.0.0 con las siguientes mejoras:
+
+       - Una nueva interfaz gráfica con Swing utilizando BorderLayout llamada 
+         "vistaConLayout", la anterior ha sido renombrada a "vistaSinLayout".
+       - Se ha añadido una nueva funcionalidad para la solicitud de reportes a 
+         traves JasperReports. El usuario podrá acceder a un histórico de las 
+         ventas realizadas por su organización.
+       - Nuevo controlador controladorReporte para el manejo de reportes como 
+         el anteriormente descripto.
+       - Se agrega un nuevo atributo precioUnitario a detalleVenta con el valor 
+         en el que fue vendido el producto el cual no varía cuando se actualiza 
+         el precio de venta corriente del mismo producto.
+       - Las abstractTableModel son ahora administradas por los controladores 
+         correspondientes.
+
+     - Se organiza el material a entregar al profesor Javier Blanqué en el 
+       final de programación IV. 
+     - Se testea aplicación en Debian 7.
+       - Hubo que actualizar el jdk 1.6 a jdk1.7
+       - No pudo testearse la BD ya que no pudo instalarse PostgreSQL con 
+         éxito.
+     - Se agrega a la entrega del proyecto un archivo léeme.txt que detalla los 
+       pasos a seguir para la instalación de la aplicación.
+
+
+- 16/12/2015:
+     - Se realizan testeos en Ubuntu 11.
+       - Se debió actualizar jdk a jdk1.7
+       - Todo en perfectas condiciones.
+     - Se realizan testeos en Debian 7.
+       - Se repara BD.
+       - Todo funciona con normalidad.
+     - Se completa el léeme.txt con la descripción de lo entregado e 
+       instrucciones detalladas de su instalación.
+         
+
+A FUTURO:
+
+- Realizar tablas de Producto, Cliente, Venta y detalleVenta. HECHO.
+	- Realizar clases JAVA correspondientes a cada tabla. HECHO.
+- Procedimientos y vistas mínimos para manejos de tablas desde Java. HECHO.
+	- Clases para crear conexión desde aplicacion JAVA a BD. PARCIAL
+Problemática: ¿Qué devuelven métodos? Si no se puede generar conexión ¿qué pasa?. 
+- Clases Producto, Cliente, Venta y detalleVenta para realizar inserciones y demas en BD. HECHO
+	- Interfaz gráfica. HECHO!!
+	- Reflection/annotations/generic en tablas. HECHO.
+      - Utilizar patrón MVC. HECHO
+      - Agregar reportes. HECHO.
+      - Implementar triggers en BD.
+
+
+OPCIONAL:	
+
+- Poder conectarme a BD desde otros equipos externos al servidor de BD. HECHO.
+	- Historial de ventas. HECHO
+	- Carrito para cada cliente.
+	- Lista favoritos por cliente.
+	- log de usuarios.
+	- Agregar más atributos a tablas
+	- Manejo de Stock.
+	- Uso de Triggers.
+	- Procedimientos y vistas extras.
+	- Clase y tabla Descuento.
+	- Agregar imágenes a producto.
+	- Migrar a JPA
+
+
+DUDAS:
+
+     - Funciones de clases que se conectan a la BD devuelven booleano según si 
+       la comunicación fue correcta. El problema es que dicho booleano es 
+       devuelto según variables que podrían no haber sido bien interpretadas.
+     - Controlador y modelo podrían depender de cada uno ya que controlador 
+       instancia directamente clases que pertenecen al modelo.
+     - Las clases que implementan AbstractTableModel son consideradas en el 
+       presente proyecto como parte de la vista.
+     - Cuando se genera un jar ejecutable JasperReports no funciona ya que 
+       requiere que los documentos de los cuales hace uso (.jrxml,.jasper,.img) 
+       se encuentren en algún directorio especificado. Por esta causa y como 
+       decisión de implementación cuando se transfiera el jar ejecutable al 
+       usuario también se le pedirá que agregue una carpeta con dichos 
+       documentos a un path también especificado.
+
+
+ 
+LECCIONES APRENDIDAS:
+
+     - Stored procedures y herramienta PostgreSQL en general.
+	- Desarrollo de conexiones a bases de datos a traves de API JDBC.
+	- Manejo de errores a partir de try-catch.
+	- Implementación de Interfaz gráfica a partir de Swing con herramienta 
+        WindowBuilder.
+	- Manejo de repositorios git y control de versiones.
+	- Diagramación de UMLs mediante ObjectAid.
+	- Diagramación de Casos de uso.
+	- Conexion a BD a traves de dispositivos externos a esta 
+        dentro de una red local.
+	- Uso de annotations y clases genericas para desarrollar TableModel
+	- Desarrollo siguiendo el patron de arquitectura MVC
+	- Uso de Layouts en Swing.
+	- Generación de reportes con JasperReports

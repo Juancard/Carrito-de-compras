@@ -10,7 +10,7 @@ public class ConexionUtility {
 
 	// CREDENCIALES DE USUARIO
 	static final String USUARIO = "postgres";
-	static final String CONTRASEÑA = "postgres";
+	static final String CONTRASENA = "postgres";
 	
 	public static Connection getConexion(){
 		Connection connection = null;
@@ -19,7 +19,7 @@ public class ConexionUtility {
 			Class.forName(JDBC_DRIVER);
 
 			// ESTABLECE CONEXION
-			connection = DriverManager.getConnection(DB_URL, USUARIO, CONTRASEÑA);
+			connection = DriverManager.getConnection(DB_URL, USUARIO, CONTRASENA);
 			
 		} catch(SQLException se){
 			//Manejo de errores para JDBC

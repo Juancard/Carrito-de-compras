@@ -26,9 +26,9 @@ public class ProductoBD {
 			cst = c.prepareCall(consulta);
 			
 			// PARAMETROS DE SALIDA
-			cst.registerOutParameter(1, Types.VARCHAR);
-			cst.registerOutParameter(2, Types.NUMERIC);	
-			cst.registerOutParameter(3, Types.INTEGER);
+			cst.registerOutParameter(1, Types.VARCHAR); // descripcion
+			cst.registerOutParameter(2, Types.NUMERIC);	// precio
+			cst.registerOutParameter(3, Types.INTEGER); // codigo de producto
 
 			// PARAMETROS DE ENTRADA
 			cst.setString(1, p.getDescripcion());
@@ -70,9 +70,9 @@ public class ProductoBD {
 			cst = c.prepareCall(consulta);
 			
 			// PARAMETROS DE SALIDA
-			cst.registerOutParameter(1, Types.INTEGER);			
-			cst.registerOutParameter(2, Types.VARCHAR);
-			cst.registerOutParameter(3, Types.NUMERIC);
+			cst.registerOutParameter(1, Types.INTEGER);	// codigo de producto		
+			cst.registerOutParameter(2, Types.VARCHAR); // descripcion
+			cst.registerOutParameter(3, Types.NUMERIC); // precio
 			
 			// PARAMETROS DE ENTRADA
 			cst.setInt(1, producto.getCodigoProducto());

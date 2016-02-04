@@ -31,9 +31,9 @@ public class VentaBD {
 			cst = c.prepareCall(consulta);
 			
 			// PARAMETROS DE SALIDA
-			cst.registerOutParameter(1, Types.INTEGER);
-			cst.registerOutParameter(2, Types.DATE);
-			cst.registerOutParameter(3, Types.INTEGER);
+			cst.registerOutParameter(1, Types.INTEGER); // codigo de cliente
+			cst.registerOutParameter(2, Types.DATE); // fecha
+			cst.registerOutParameter(3, Types.INTEGER); // codigo de venta
 			
 			// PARAMETROS DE ENTRADA
 			cst.setInt(1, venta.getCodigoCliente());
