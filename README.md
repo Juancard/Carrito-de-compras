@@ -239,7 +239,7 @@ Diariamente se lleva una bitácora con información actualizada del estado del p
 
 ## Resultados esperados a la culminación del proyecto
 
-### MEDICIÓN PERSONAL DEL ÉXITO ALCANZADO
+### Medición personal del éxito alcanzado
 
 A nivel personal se ha conseguido:
 
@@ -255,7 +255,7 @@ A nivel personal se ha conseguido:
 
 
 
-### VALORIZACION DE LOS BENEFICIOS DEL PROYECTO:
+### Valoración de los beneficios del proyecto:
 
 A partir de la realización de este proyecto se ha logrado:
 
