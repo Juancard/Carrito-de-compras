@@ -10,7 +10,7 @@ En cuanto al código fuente del software presentado cumple con el patrón de arq
 
 -----------
 
-# Introducción
+## Introducción
 
 El presente proyecto consiste en un sistema de ventas tipo carrito de compras para la realización de transacciones comerciales. 
 Dicho software brindará al usuario la posibilidad de seleccionar de una serie de productos a la venta los ítems aquellos que se desea adquirir y de esta manera confeccionar el pedido de un cliente en particular también seleccionado por el usuario.
@@ -31,7 +31,7 @@ El código fuente del proyecto ha sido almacenado en repositorios web a lo largo
 
 --------
 
-# Infraestructura y arquitectura tecnológica
+## Infraestructura y arquitectura tecnológica
 
 El proyecto ha sido desarrollado utilizando como dispositivo de cabecera una notebook Lenovo G480 con 4 Gb de memoria y procesador Intel I3. Pantalla de 14 pulgadas.
 
@@ -53,15 +53,17 @@ Finalmente, el desarrollo de clases de testeos del modelo se llevará a cabo a t
 
 -------
 
-# Definición detallada del proyecto
+## Definición detallada del proyecto
 
-ANTECEDENTES:
+###ANTECEDENTES:
 
 Aún existen en la actualidad organizaciones donde las actividades transaccionales o de venta se llevan a cabo de manera manual o sin el soporte de un sistema que facilite la labor de los empleados. 
 
 Si bien de un tiempo a esta parte se ha crecido mucho en cuanto a la automatización de las tareas organizacionales, aún queda mucho por desarrollar y es de importancia que se continúe por esta senda.
 
-OBJETIVOS O PROPÓSITO:
+
+
+### OBJETIVOS O PROPÓSITO:
 
 Como propósito general se busca generar nuevas soluciones de software para la automatización de actividades llevadas a cabo en organizaciones así como obtener conocimientos sobre tecnologías utilizadas en la actualidad y sus posibles implementaciones.
 
@@ -89,7 +91,9 @@ Otros objetivos son:
 
 * Separar el código fuente de la aplicación siguiendo el patrón MVC.
 
-BENEFICIOS:
+
+
+### BENEFICIOS:
 
 De esta manera el software logra:
 
@@ -103,13 +107,17 @@ De esta manera el software logra:
 
 * Facilitar futuras evoluciones en el comportamiento del sistema mediante la mantención del código fuente a partir de la implementación de casos de prueba.
 
-ALCANCE:
+
+
+### ALCANCE:
 
 Cualquier organización que realice actividades transaccionales donde existan productos en demanda con un valor determinado y clientes dispuestos a su adquisición. 
 
 Estas organizaciones pueden ser un negocio particular con atención al cliente o en general cualquier empresa pequeña o mediana con objetivos comerciales.
 
-REQUERIMIENTOS:
+
+
+### REQUERIMIENTOS:
 
 Para la implementación del proyecto se requerirá un computador encargado de almacenar la base de datos y un conjunto de computadores clientes que se conectarán a dicho computador servidor y realizaran las consultas que requieran, ya sea agregar nuevas ventas confirmadas, actualizar clientes y demás.
 
@@ -117,7 +125,9 @@ Las especificaciones de los computadores, tanto de servidor como cliente, quedan
 
 Dicha conexión entre computadores requerirá de la existencia de una red LAN con velocidad de conexión sujeta a las necesidades de la organización.
 
-LIMITACIONES:
+
+
+### LIMITACIONES:
 
 El sistema no permitirá:
 
@@ -133,7 +143,9 @@ El sistema no permitirá:
 
 * Ingresar datos que no sean válidos según lo establecido por dominio.
 
-LÍNEAS FUTURAS:
+
+
+### LÍNEAS FUTURAS:
 
 A futuro se podrá extender las funcionalidades del sistema para que permita:
 
@@ -157,7 +169,7 @@ A futuro se podrá extender las funcionalidades del sistema para que permita:
 
 --------
 
-# Duración
+## Duración
 
 Se trabaja sobre proyecto a horario completo en días libres y aprovechando tiempo disponible por la mañana y noche para días de cursada universitaria.
 
@@ -179,17 +191,17 @@ Diariamente se lleva una bitácora con información actualizada del estado del p
 
 ----------------------------
 
-# Diagramas
+## Diagramas
 
-- Diagrama de clases:
+### Diagrama de clases:
 
 ![uml_carrito_v2 0 0](https://cloud.githubusercontent.com/assets/9201382/11824762/6af8f062-a35a-11e5-846c-614bc550ebc2.gif)
 
-- Casos de uso:
+### Casos de uso:
 
 ![caso_de_uso_v2 0 0](https://cloud.githubusercontent.com/assets/9201382/11824722/3b4c805e-a35a-11e5-83d1-2a7c3d3e4914.png)
 
-- Diagramas de secuencia:
+### Diagramas de secuencia:
 
 ![secuencia_ins_prod](https://cloud.githubusercontent.com/assets/9201382/11824787/8bf02a10-a35a-11e5-8229-a2f7831956cf.png)
 
@@ -209,9 +221,9 @@ Diariamente se lleva una bitácora con información actualizada del estado del p
 
 ------------
 
-# Resultados esperados a la culminación del proyecto
+## Resultados esperados a la culminación del proyecto
 
-MEDICIÓN PERSONAL DEL ÉXITO ALCANZADO
+### MEDICIÓN PERSONAL DEL ÉXITO ALCANZADO
 
 A nivel personal se ha conseguido:
 
@@ -225,7 +237,9 @@ A nivel personal se ha conseguido:
 
 * Poner en práctica de manera informal técnicas de programación extrema como casos de prueba y desarrollo incremental.
 
-VALORIZACION DE LOS BENEFICIOS DEL PROYECTO:
+
+
+### VALORIZACION DE LOS BENEFICIOS DEL PROYECTO:
 
 A partir de la realización de este proyecto se ha logrado:
 
