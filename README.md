@@ -1,5 +1,7 @@
 # Carrito de compras
 
+![interface_usuario](http://i66.tinypic.com/33dhywz.png)
+
 El proyecto consiste en una aplicación Java tipo carrito compras que se conecta a una base de datos relacional para efectivizar ventas a clientes.
 
 Dicha aplicación cuenta con una interfaz gráfica de usuario y distintas funcionalidades como la de insertar y actualizar productos en venta y clientes al sistema, aplicar descuentos a pedidos y añadir y eliminar productos en el carrito.
