@@ -1,6 +1,5 @@
 # Carrito de compras
 
-![interface_usuario](http://i66.tinypic.com/33dhywz.png)
 
 El proyecto consiste en una aplicación Java tipo carrito compras que se conecta a una base de datos relacional para efectivizar ventas a clientes.
 
@@ -9,6 +8,8 @@ Dicha aplicación cuenta con una interfaz gráfica de usuario y distintas funcio
 La aplicación también es capaz de emitir reportes sobre las ventas llevadas a cabo en la empresa a lo largo de su actividad.
 
 En cuanto al código fuente del software presentado cumple con el patrón de arquitectura modelo-vista-controlador para facilitar futuras implementaciones de cada capa. También cuenta con testeos de las clases del modelo utilizados durante el desarrollo.
+
+![interface_usuario](http://i66.tinypic.com/33dhywz.png)
 
 -----------
 
