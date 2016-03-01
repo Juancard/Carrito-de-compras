@@ -32,10 +32,10 @@ En cuanto al código fuente del software presentado cumple con el patrón de arq
     ```
 
 2. Importa el código fuente del proyecto ubicada [Aquí](https://github.com/Juancard/Carrito-de-compras/tree/master/src)
-
-Nota: Necesario JDK7 o superior.
+	Nota: Necesario JDK7 o superior.
 
 3. Descarga y agrega al proyecto los siguientes jars necesarios para correr la aplicación:
+
   - Para base de datos: postgresql-9.4-1202.jdbc4.
   - Para generar reportes: commons-beanutils-1.9.0; commons-collections-3.2.1; commons-digester-2.1; commons-logging-1.1.1; groovy-all-2.4.3; itext-2.1.7.js4; jasperreports-6.2.0; jfreechart-1.0.19; poi-3.10.1.
  
