@@ -18,19 +18,22 @@ En cuanto al código fuente del software presentado cumple con el patrón de arq
 1. Restaurar en PostgreSQL la base de datos "carrito.sql" ubicada [Aquí](https://github.com/Juancard/Carrito-de-compras/tree/master/bd) 
    
    Con las siguientes credenciales de usuario:
-	- Usuario: postgres
-	- Contraseña: postgres
+   ```bash
+	User: postgres
+	Pass: postgres
+   ```
    
     Desde terminal:
-```bash
+    ```bash
 	$ psql
 	$ create database carrito;
 	$ \q
 	$ psql -U postgres -d carrito -f [ruta/a/bd]/carrito.sql
-```
+    ```
 
 2. Importa el código fuente del proyecto ubicada [Aquí](https://github.com/Juancard/Carrito-de-compras/tree/master/src)
-    Nota: Necesario JDK7 o superior.
+
+Nota: Necesario JDK7 o superior.
 
 3. Descarga y agrega al proyecto los siguientes jars necesarios para correr la aplicación:
   - Para base de datos: postgresql-9.4-1202.jdbc4.
