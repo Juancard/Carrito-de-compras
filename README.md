@@ -32,6 +32,7 @@ En cuanto al código fuente del software presentado cumple con el patrón de arq
     ```
 
 2. Importa el código fuente del proyecto ubicada [Aquí](https://github.com/Juancard/Carrito-de-compras/tree/master/src)
+
 	Nota: Necesario JDK7 o superior.
 
 3. Descarga y agrega al proyecto los siguientes jars necesarios para correr la aplicación:
