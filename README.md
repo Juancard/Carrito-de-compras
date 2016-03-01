@@ -13,6 +13,36 @@ En cuanto al código fuente del software presentado cumple con el patrón de arq
 
 -----------
 
+## Instalación
+
+1. Restaurar en PostgreSQL la base de datos "carrito.sql" ubicada [Aquí](https://github.com/Juancard/Carrito-de-compras/tree/master/bd) 
+   Usuario: postgres
+   Contraseña: postgres
+	Desde terminal:
+	   # psql
+	   # create database carrito;
+	   # \q
+	   # psql -U postgres -d carrito -f [ruta]/carrito.sql
+
+2. Importa el código fuente del proyecto ubicada [Aquí](https://github.com/Juancard/Carrito-de-compras/tree/master/src)
+    Nota: Necesario JDK7 o superior.
+
+3. Descarga y agrega al proyecto los siguientes jars necesarios para correr la aplicación:
+  - Para base de datos: 
+    postgresql-9.4-1202.jdbc4.
+  - Para generar reportes: 
+    commons-beanutils-1.9.0; commons-collections-3.2.1; commons-digester-2.1; commons-logging-1.1.1; groovy-all-2.4.3; itext-2.1.7.js4; jasperreports-6.2.0; jfreechart-1.0.19; poi-3.10.1.
+ 
+   Ejemplo de configuración en Eclipse IDE:
+   - Click derecho en tu proyecto CarritoCompras y seleccionar 
+     Build Path->Configure Build Path.
+   - En la ventana emergente seleccionar la pestaña Libraries.
+   - Click en Add external Jars y seleccionar los JARs necesarios
+   - Dar click a Ok.
+
+
+-----------
+
 ## Introducción
 
 El presente proyecto consiste en un sistema de ventas tipo carrito de compras para la realización de transacciones comerciales. 
