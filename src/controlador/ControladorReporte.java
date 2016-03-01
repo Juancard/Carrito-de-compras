@@ -30,7 +30,7 @@ public class ControladorReporte implements ActionListener {
 		String accion = evento.getActionCommand();
 		if (accion.equals(vista.HISTORICO_VENTAS)){
 			String rutaProyecto = System.getProperty("user.dir");
-	        String rutaArchivo = rutaProyecto + "/src/reporte/historicoVentas.jasper";
+	        String rutaArchivo = rutaProyecto + "/reporte/historicoVentas.jasper";
 	        HashMap hm = new HashMap();
 	        Connection conexion = ConexionUtility.getConexion();
 	        try {
