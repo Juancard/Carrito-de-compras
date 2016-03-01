@@ -22,10 +22,12 @@ En cuanto al código fuente del software presentado cumple con el patrón de arq
 	- Contraseña: postgres
    
     Desde terminal:
+```bash
 	$ psql
 	$ create database carrito;
 	$ \q
 	$ psql -U postgres -d carrito -f [ruta/a/bd]/carrito.sql
+```
 
 2. Importa el código fuente del proyecto ubicada [Aquí](https://github.com/Juancard/Carrito-de-compras/tree/master/src)
     Nota: Necesario JDK7 o superior.
